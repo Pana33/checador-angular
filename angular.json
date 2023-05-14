@@ -109,6 +109,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "checador-angular:build:production",
+            "firebaseProject": "checador-empresarial",
+            "firebaseHostingSite": "checador-empresarial"
+          }
         }
       }
     }

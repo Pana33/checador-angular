@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "checador-empresarial": {
+      "hosting": {
+        "checador-angular": [
+          "checador-empresarial"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "checador-empresarial"
+  }
+}
