@@ -6,23 +6,32 @@
                     <div class="card-tittle text-center">
                         <h4>Checador empresarial</h4>
                     </div>
-                    <form>
+                    <form [formGroup]="formLogin" (ngSubmit)="makeLogin()">
                         <div class="pb-3">
                             <label for="email" class="form-label"><h6>Correo</h6></label>
-                            <input type="email" class="form-control" id="email" placeholder="nombre@dominio.com">
+                            <input type="email" class="form-control" id="email" placeholder="nombre@dominio.com" formControlName="user">
                         </div>
                         <div class="pb-4">
                             <label for="password" class="form-label"><h6>Contraseña</h6></label>
-                            <input type="password" class="form-control" id="password" placeholder="*********">
+                            <input type="password" class="form-control" id="password" placeholder="*********" formControlName="password">
                         </div>
                         <div class="pb-3 text-center">
-                            <button class="btn btn-outline-success" type="submit">
+                            <button class="btn btn-outline-success" type="submit" [disabled]="formLogin.invalid" *ngIf="!showSpinner">
                                 Ingresar <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
                                     <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
                                 </svg>
                             </button>
+                            <button class="btn btn-outline-success" type="submit" disabled="true" *ngIf="showSpinner">
+                                Cargando... <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            </button>
                         </div>
                     </form>
+                </div>
+            </div>
+            <div class="pt-3">
+                <div class="alert alert-danger fade m-0" role="alert" id="errorLogin">
+                    <p class="fw-bold m-0 py-1">Datos incorrectos</p>
+                    <p class="m-0 py-1">Por favor revisa la informacion e intenta nuevamente</p>
                 </div>
             </div>
         </div>

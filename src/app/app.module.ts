@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
+import { AuthService } from './services/auth.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { environment } from '../environments/environment';
 //Firebase
@@ -23,6 +25,8 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
@@ -32,7 +36,9 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
     provideStorage(() => getStorage())
   ],
   providers: [
-    ScreenTrackingService,UserTrackingService
+    ScreenTrackingService,
+    UserTrackingService,
+    AuthService,
   ],
   bootstrap: [AppComponent]
 })
