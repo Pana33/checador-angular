@@ -10,7 +10,7 @@
                 </blockquote>
             </div>
             <div class="list-group list-group-flush">
-                <a routerLink="registros" class="list-group-item py-2 list-group-item-action border-top">
+                <a [routerLink]="pages.REGISTROS" class="list-group-item py-2 list-group-item-action border-top">
                     <div class="d-flex flex-row align-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-stopwatch" viewBox="0 0 16 16">
                             <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5V5.6z"/>
@@ -28,7 +28,7 @@
                         <span class="ps-2">Empleados</span>
                     </div>
                 </a>
-                <a routerLink="usuarios" class="list-group-item py-2 list-group-item-action">
+                <a [routerLink]="pages.USUARIOS" class="list-group-item py-2 list-group-item-action">
                     <div class="d-flex flex-row align-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>

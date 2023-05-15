@@ -1,19 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
+import { PageRoutes } from './models/page-routes/page-routes';
 
 const routes: Routes = [
   {
-    path:'',redirectTo:'login',pathMatch:'full'
+    path:'',redirectTo:PageRoutes.LOGIN,pathMatch:'full'
   },
   {
-    path:'login',component:LoginComponent
+    path:PageRoutes.LOGIN,component:LoginComponent
   },
   {
-    path:'menu',loadChildren: () => import('./pages/main-menu/module/main-menu.module').then(m => m.MainMenuModule)
+    path:PageRoutes.MENU,loadChildren: () => import('./pages/main-menu/module/main-menu.module').then(m => m.MainMenuModule)
   },
   {
-    path:'**',redirectTo:'login'
+    path:'**',redirectTo:PageRoutes.LOGIN
   }
 ];
 

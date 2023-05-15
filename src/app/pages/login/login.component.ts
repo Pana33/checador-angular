@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PageRoutes } from 'src/app/models/page-routes/page-routes';
 import { AuthService } from 'src/app/services/authentication/auth.service';
 
 @Component({
@@ -25,7 +26,7 @@ export class LoginComponent implements OnInit{
   makeLogin(){
     this.showSpinner = true
     this.auth.login(this.formLogin.value.user,this.formLogin.value.password).then(res=>{
-      this.router.navigate(['menu'])
+      this.router.navigate([PageRoutes.MENU])
       this.showSpinner = false
     }).catch(err=>{
       this.showSpinner = false

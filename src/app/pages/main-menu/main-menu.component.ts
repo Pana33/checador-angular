@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { DocumentData } from 'firebase/firestore';
 import { Subscription } from 'rxjs';
+import { PageRoutes } from 'src/app/models/page-routes/page-routes';
+import { TablesDb } from 'src/app/models/tables-db/tables-db';
+import { UserDb } from 'src/app/models/type-person/type-person';
 import { AuthService } from 'src/app/services/authentication/auth.service';
 import { DatabaseService } from 'src/app/services/database/database.service';
 
@@ -14,18 +16,19 @@ export class MainMenuComponent implements OnInit, OnDestroy {
 
   constructor(private auth: AuthService, private db: DatabaseService, private router: Router) { }
 
+  readonly pages = PageRoutes
   emailUser = ""
   subEmailUser!: Subscription
-  dataUser!: DocumentData
+  dataUser!: UserDb
   subDataUser!: Subscription
 
   ngOnInit(): void {
     this.subEmailUser = this.auth.getEmailUser().subscribe(resEmailUser => {
       if (resEmailUser != null && typeof (resEmailUser.email) == "string") {
         this.emailUser = resEmailUser.email
-        this.subDataUser = this.db.getOneDocumentSubscribable("Users", this.emailUser).subscribe(resDataUser => {
-          this.dataUser = resDataUser
-          if (!this.dataUser["isActive"]) {
+        this.subDataUser = this.db.getOneDocumentSubscribable(TablesDb.USUARIOS, this.emailUser).subscribe(resDataUser => {
+          this.dataUser = resDataUser as UserDb
+          if (!this.dataUser.isActive) {
             //El usuario no esta activo
             this.logout()
           }
@@ -39,7 +42,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
 
   logout() {
     this.auth.logout()
-    this.router.navigate(['/login'])
+    this.router.navigate([PageRoutes.LOGIN])
   }
 
   ngOnDestroy(): void {
