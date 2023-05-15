@@ -10,7 +10,13 @@ const routes: Routes = [
         path:PageRoutes.REGISTROS,loadChildren: () => import('../../records/module/records.module').then(m => m.RecordsModule)
       },
       {
+        path:PageRoutes.EMPLOYEES,loadChildren: () => import('../../employees/module/employees.module').then(m => m.EmployeesModule)
+      },
+      {
         path:PageRoutes.USUARIOS,loadChildren: () => import('../../users/module/users.module').then(m => m.UsersModule)
+      },
+      {
+        path:PageRoutes.SETTINGS,loadChildren: () => import('../../settings/module/settings.module').then(m => m.SettingsModule)
       },
       {
         path:'**',redirectTo:PageRoutes.REGISTROS,pathMatch:'full'
