@@ -14,6 +14,7 @@ export class EmployeesComponent implements OnInit, OnDestroy {
   constructor(private db:DatabaseService){}
 
   headerTable = ["Nombre","Apellidos","Correo","Curp","Alta", "Acciones"]
+  keyEmployees = ["firstName","lastName","emailEmployee","curp","dtCreated"]
   employeeDocuments!:EmployeeDb[]
   subEmployeeDocuments!:Subscription
 

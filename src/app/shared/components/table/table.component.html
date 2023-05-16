@@ -1,0 +1,23 @@
+
+<table class="table text-center table-hover">
+    <thead>
+        <tr>
+            <th *ngFor="let tittle of headers">{{tittle}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let doc of data">
+            <tr>
+                <ng-container *ngFor="let key of keys">
+                    <td *ngIf="key!='dtCreated';else idDtCreated">{{doc[key]}}</td>
+                    <ng-template #idDtCreated>
+                        <td>{{doc["dtCreated"].toDate() | date: "dd-MM-yyyy"}}</td>
+                    </ng-template>
+                </ng-container>
+                <td>
+                    <app-buttons-table></app-buttons-table>
+                </td>
+            </tr>
+        </ng-container>
+    </tbody>
+</table>
