@@ -9,4 +9,5 @@ export class TableComponent {
   @Input() headers!:string[]
   @Input() data!:any
   @Input() keys!:string[]
+  @Input() idToButtons!:string
 }

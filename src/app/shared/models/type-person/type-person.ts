@@ -5,6 +5,7 @@ interface Person {
     firstName: string,
     lastName: string,
     fullName: string,
+    isActive: boolean,
 }
 export interface EmployeeDb extends Person {
     emailEmployee: string,

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-buttons-table',
@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./buttons-table.component.scss']
 })
 export class ButtonsTableComponent {
+  @Input() status!:boolean | null
+  @Input() idDoc!:string
 
+  pressed(){
+    console.log(this.idDoc)
+  }
 }

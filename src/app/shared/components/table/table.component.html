@@ -15,7 +15,7 @@
                     </ng-template>
                 </ng-container>
                 <td>
-                    <app-buttons-table></app-buttons-table>
+                    <app-buttons-table [status]="doc?.isActive" [idDoc]="doc[idToButtons]"></app-buttons-table>
                 </td>
             </tr>
         </ng-container>
