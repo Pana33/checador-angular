@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { PageRoutes } from 'src/app/models/page-routes/page-routes';
-import { TablesDb } from 'src/app/models/tables-db/tables-db';
-import { UserDb } from 'src/app/models/type-person/type-person';
+import { PageRoutes } from 'src/app/shared/models/page-routes/page-routes';
+import { TablesDb } from 'src/app/shared/models/tables-db/tables-db';
+import { UserDb } from 'src/app/shared/models/type-person/type-person';
 import { AuthService } from 'src/app/services/authentication/auth.service';
 import { DatabaseService } from 'src/app/services/database/database.service';
 
@@ -26,7 +26,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     this.subEmailUser = this.auth.getEmailUser().subscribe(resEmailUser => {
       if (resEmailUser != null && typeof (resEmailUser.email) == "string") {
         this.emailUser = resEmailUser.email
-        this.subDataUser = this.db.getOneDocumentSubscribable(TablesDb.USUARIOS, this.emailUser).subscribe(resDataUser => {
+        this.subDataUser = this.db.getOneDocumentSubscribable(TablesDb.USERS, this.emailUser).subscribe(resDataUser => {
           this.dataUser = resDataUser as UserDb
           if (!this.dataUser.isActive) {
             //El usuario no esta activo

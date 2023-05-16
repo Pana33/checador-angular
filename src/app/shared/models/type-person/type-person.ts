@@ -1,8 +1,7 @@
+import { Timestamp } from "firebase/firestore";
+
 interface Person {
-    dtCreated: {
-        seconds: number,
-        nanoseconds: number
-    },
+    dtCreated: Timestamp,
     firstName: string,
     lastName: string,
     fullName: string,
