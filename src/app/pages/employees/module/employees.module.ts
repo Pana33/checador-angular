@@ -5,6 +5,7 @@ import { EmployeesRoutingModule } from './employees-routing.module';
 import { EmployeesComponent } from '../employees.component';
 import { ModalFormEmployeeComponent } from '../components/modal-form-employee/modal-form-employee.component';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'src/app/shared/components/table/table.module';
 import { NavbarModule } from 'src/app/shared/components/navbar/navbar.module';
 
@@ -16,6 +17,8 @@ import { NavbarModule } from 'src/app/shared/components/navbar/navbar.module';
   imports: [
     CommonModule,
     EmployeesRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     TableModule,
     NavbarModule,
   ]

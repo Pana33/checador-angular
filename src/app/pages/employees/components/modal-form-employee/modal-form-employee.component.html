@@ -1,16 +1,38 @@
 <div class="modal fade" id="formAdd" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar empleado</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <div class="modal-header justify-content-center">
+                <h5>Agregar empleado</h5>
             </div>
             <div class="modal-body">
-                ...
+                <div class="container-fluid">
+                    <form [formGroup]="formAddEmployee">
+                        <div class="row">
+                            <div class="col-12 col-sm-6 pb-3">
+                                <label for="firstName" class="form-label">Nombre(s)</label>
+                                <input type="firstName" class="form-control" id="firstName" placeholder="Juan Fernando" formControlName="firstName">
+                            </div>
+                            <div class="col-12 col-sm-6 pb-3">
+                                <label for="lastName" class="form-label">Apellido(s)</label>
+                                <input type="lastName" class="form-control" id="lastName" placeholder="Gonzales Sanchez" formControlName="lastName">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-6 pb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" placeholder="correo@dominio.com" formControlName="emailEmployee">
+                            </div>
+                            <div class="col-12 col-sm-6 pb-3">
+                                <label for="curp" class="form-label">Curp</label>
+                                <input type="curp" class="form-control" id="curp" placeholder="GOSA900713AGSFTL55" formControlName="curp">
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success">Agregar</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="formAddEmployee.reset()">Cancelar</button>
+                <button type="button" class="btn btn-success" [disabled]="formAddEmployee.invalid" (click)="addEmploye()">Agregar</button>
             </div>
         </div>
     </div>
