@@ -1,6 +1,6 @@
 <div class="container-fluid h-100">
     <div class="row h-100">
-        <div class="d-flex flex-column sideNav py-2 px-0 border-end">
+        <div class="d-flex flex-column sideNav py-2 px-0 border-end h-100">
             <div class="text-center pt-3 pb-4" id="headerSidenav">
                 <h5 class="m-0">Checador Empresarial</h5>
                 <blockquote class="blockquote-footer m-0">
@@ -57,10 +57,12 @@
                 </a>
             </div>
         </div>
-        <div class="col h-100">
-            <div class="row h-100">
-                <div class="col h-100 p-0">
-                    <router-outlet></router-outlet>
+        <div class="col h-100 all-content p-0 m-0">
+            <div class="container-fluid h-100">
+                <div class="row h-100">
+                    <div class="col h-100 p-0 overflow-auto">
+                        <router-outlet></router-outlet>
+                    </div>
                 </div>
             </div>
         </div>

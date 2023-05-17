@@ -21,11 +21,15 @@ export class EmployeesComponent implements OnInit, OnDestroy {
   employeeDocuments!: EmployeeDb[]
   employeeDocumentsComplet!: EmployeeDb[]
   subEmployeeDocuments!: Subscription
+  paramsToFilter: FilterParam | null = null
 
   ngOnInit(): void {
     this.subEmployeeDocuments = this.db.getAllDocumentsWhitoutIdSubscribable(TablesDb.EMPLOYEES).subscribe(resEmployees => {
-      this.employeeDocuments = resEmployees as EmployeeDb[]
       this.employeeDocumentsComplet = resEmployees as EmployeeDb[]
+      this.employeeDocuments = resEmployees as EmployeeDb[]
+      if (this.paramsToFilter != null) {
+        this.filterData(this.paramsToFilter)
+      }
     })
   }
 
@@ -34,6 +38,7 @@ export class EmployeesComponent implements OnInit, OnDestroy {
   }
 
   filterData(paramsObject: FilterParam) {
+    this.paramsToFilter = paramsObject
     this.employeeDocuments = this.employeeDocumentsComplet
     if (paramsObject.filterBy != "" && paramsObject.column != "none") {
       let arrowFunctionToFilter
