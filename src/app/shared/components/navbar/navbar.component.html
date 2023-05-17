@@ -1,1 +1,22 @@
-<p>navbar works!</p>
+<nav class="navbar bg-light">
+    <div class="container-fluid">
+        <form [formGroup]="formFilterData" class="d-flex justify-content-center align-items-center gap-3">
+            <input class="form-control form-control-sm" placeholder="Filtrar" formControlName="filterBy" (keyup)="sendParamsToFilter()">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="coincidencia" formControlName="exactMatch" (change)="sendParamsToFilter()">
+                <label class="form-check-label text-nowrap" for="coincidencia">
+                  Coincidencia exacta
+                </label>
+            </div>
+            <select class="form-select form-select-sm" formControlName="column" (change)="sendParamsToFilter()">
+                <option value="none" selected>No aplicar</option>
+                <option [value]="key" *ngFor="let key of keys;let i = index">{{headers[i]}}</option>
+            </select>
+        </form>
+        <button class="btn btn-primary btn-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-plus-fill" viewBox="0 0 16 16">
+                <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM8.5 7v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 1 0z"/>
+            </svg>
+        </button>
+    </div>
+</nav>
