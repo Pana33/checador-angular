@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FilterParam } from '../../models/filter-param/filter-param';
+import { EmittersService } from 'src/app/services/emitters/emitters.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +13,7 @@ export class NavbarComponent implements OnInit {
   @Input() keys!:string[]
   @Output() objectToFilter = new EventEmitter<FilterParam>()
 
-  constructor(private fb:FormBuilder){}
+  constructor(private fb:FormBuilder,private emitter:EmittersService){}
 
   formFilterData!:FormGroup
 
@@ -22,6 +23,10 @@ export class NavbarComponent implements OnInit {
       exactMatch:[false],
       column:["none"],
     })
+  }
+
+  showModalForm(){
+    this.emitter.activeModal.emit("add")
   }
 
   sendParamsToFilter(){
