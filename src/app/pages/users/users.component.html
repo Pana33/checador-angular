@@ -1,1 +1,5 @@
-<p>users works!</p>
+<app-navbar [headers]="headerTable" [keys]="keyUsers" (objectToFilter)="filterData($event)"></app-navbar>
+<div class="table-responsive">
+    <app-table [headers]="headerTable" [data]="userDocuments" [keys]="keyUsers" [idToButtons]="idData"></app-table>
+</div>
+<app-modal-form-user></app-modal-form-user>

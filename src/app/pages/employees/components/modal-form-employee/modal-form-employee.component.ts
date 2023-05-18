@@ -41,7 +41,7 @@ export class ModalFormEmployeeComponent implements OnInit, OnDestroy {
     })
   }
 
-  addEmploye(){
+  addOrUpdateEmploye(){
     //Crear funcion para recibir la data y crear el empleado
     if(this.operation == "add"){
       console.log("Agregando: ",this.formAddEmployee.value)

@@ -2,11 +2,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header justify-content-center">
-                <h5>{{headerModalEmployee}}</h5>
+                <h5>{{headerModalUser}}</h5>
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <form [formGroup]="formAddEmployee">
+                    <form [formGroup]="formAddUser">
                         <div class="row">
                             <div class="col-12 col-sm-6 pb-3">
                                 <label for="firstName" class="form-label">Nombre(s)</label>
@@ -20,19 +20,22 @@
                         <div class="row">
                             <div class="col-12 col-sm-6 pb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="correo@dominio.com" formControlName="emailEmployee">
+                                <input type="email" class="form-control" id="email" placeholder="correo@dominio.com" formControlName="emailUser">
                             </div>
                             <div class="col-12 col-sm-6 pb-3">
-                                <label for="curp" class="form-label">Curp</label>
-                                <input type="curp" class="form-control" id="curp" placeholder="GOSA900713AGSFTL55" formControlName="curp">
+                                <label for="admin" class="form-label">¿Es admin?</label>
+                                <select class="form-select" id="admin" formControlName="isAdmin">
+                                    <option value="si">Si</option>
+                                    <option value="no">No</option>
+                                </select>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="formAddEmployee.reset()">Cancelar</button>
-                <button type="button" class="btn btn-success" [disabled]="formAddEmployee.invalid" (click)="addOrUpdateEmploye()">Agregar</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="formAddUser.reset()">Cancelar</button>
+                <button type="button" class="btn btn-success" [disabled]="formAddUser.invalid" (click)="addOrUpdateUser()">Agregar</button>
             </div>
         </div>
     </div>
