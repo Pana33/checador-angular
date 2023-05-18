@@ -15,7 +15,9 @@ export class TableRecordsComponent {
   constructor(private emitter:EmittersService){}
 
   sendDocToSeeOnMap(doc:RecordEmployee){
-    this.emitter.showRecordOnMap.emit(doc)
+    let arrayOfDoc:RecordEmployee[] = []
+    arrayOfDoc.push(doc)
+    this.emitter.showRecordOnMap.emit(arrayOfDoc)
   }
 
 }

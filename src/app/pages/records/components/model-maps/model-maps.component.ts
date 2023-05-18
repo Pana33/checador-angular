@@ -12,12 +12,12 @@ export class ModelMapsComponent implements OnInit, OnDestroy{
 
   constructor(private emitter:EmittersService){}
 
-  docToShow!:RecordEmployee
+  docToShow!:RecordEmployee[]
   subDocToShow!:Subscription
 
   ngOnInit(): void {
     this.subDocToShow = this.emitter.showRecordOnMap.subscribe(resRecord=>{
-      this.docToShow = resRecord as RecordEmployee
+      this.docToShow = resRecord as RecordEmployee[]
       console.log(this.docToShow)
     })
   }
