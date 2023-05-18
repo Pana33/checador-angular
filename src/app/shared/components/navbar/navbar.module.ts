@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { NavbarComponent } from './navbar.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormFilterModule } from '../form-filter/form-filter.module';
 
 @NgModule({
   declarations: [
@@ -10,8 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
+    FormFilterModule,
   ],
   exports:[
     NavbarComponent,

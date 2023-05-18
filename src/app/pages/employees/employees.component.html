@@ -1,4 +1,4 @@
-<app-navbar [headers]="headerTable" [keys]="keyEmployees" (objectToFilter)="filterData($event)"></app-navbar>
+<app-navbar [headers]="headerTable" [keys]="keyEmployees" (reSendObjectToFilter)="filterData($event)"></app-navbar>
 <div class="table-responsive">
     <app-table [headers]="headerTable" [data]="employeeDocuments" [keys]="keyEmployees" [idToButtons]="idData"></app-table>
 </div>

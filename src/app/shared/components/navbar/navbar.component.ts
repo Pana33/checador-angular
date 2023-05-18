@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FilterParam } from '../../models/filter-param/filter-param';
 import { EmittersService } from 'src/app/services/emitters/emitters.service';
 
@@ -8,29 +7,19 @@ import { EmittersService } from 'src/app/services/emitters/emitters.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
   @Input() headers!:string[]
   @Input() keys!:string[]
-  @Output() objectToFilter = new EventEmitter<FilterParam>()
+  @Output() reSendObjectToFilter = new EventEmitter<FilterParam>()
 
-  constructor(private fb:FormBuilder,private emitter:EmittersService){}
-
-  formFilterData!:FormGroup
-
-  ngOnInit(): void {
-    this.formFilterData = this.fb.group({
-      filterBy:[""],
-      exactMatch:[false],
-      column:["none"],
-    })
-  }
+  constructor(private emitter:EmittersService){}
 
   showModalForm(){
     this.emitter.activeModal.emit("add")
   }
 
-  sendParamsToFilter(){
-    this.objectToFilter.emit(this.formFilterData.value)
+  sendFilterToParent(params:FilterParam){
+    this.reSendObjectToFilter.emit(params)
   }
 
 }
