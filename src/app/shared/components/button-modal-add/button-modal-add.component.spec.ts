@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NavbarComponent } from './navbar.component';
+import { ButtonModalAddComponent } from './button-modal-add.component';
 
-describe('NavbarComponent', () => {
-  let component: NavbarComponent;
-  let fixture: ComponentFixture<NavbarComponent>;
+describe('ButtonModalAddComponent', () => {
+  let component: ButtonModalAddComponent;
+  let fixture: ComponentFixture<ButtonModalAddComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NavbarComponent ]
+      declarations: [ ButtonModalAddComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(NavbarComponent);
+    fixture = TestBed.createComponent(ButtonModalAddComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

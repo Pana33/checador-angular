@@ -1,4 +1,9 @@
-<app-navbar [headers]="headerTable" [keys]="keyUsers" (reSendObjectToFilter)="filterData($event)"></app-navbar>
+<nav class="navbar bg-light">
+    <div class="container-fluid">
+        <app-form-filter [headers]="headerTable" [keys]="keyUsers" (objectToFilter)="filterData($event)"></app-form-filter>
+        <app-button-modal-add></app-button-modal-add>
+    </div>
+</nav>
 <div class="table-responsive">
     <app-table [headers]="headerTable" [data]="userDocuments" [keys]="keyUsers" [idToButtons]="idData"></app-table>
 </div>

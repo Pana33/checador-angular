@@ -7,7 +7,8 @@ import { ModalFormEmployeeComponent } from '../components/modal-form-employee/mo
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'src/app/shared/components/table/table.module';
-import { NavbarModule } from 'src/app/shared/components/navbar/navbar.module';
+import { FormFilterModule } from 'src/app/shared/components/form-filter/form-filter.module';
+import { ButtonModalAddModule } from 'src/app/shared/components/button-modal-add/button-modal-add.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NavbarModule } from 'src/app/shared/components/navbar/navbar.module';
     FormsModule,
     ReactiveFormsModule,
     TableModule,
-    NavbarModule,
+    FormFilterModule,
+    ButtonModalAddModule,
   ]
 })
 export class EmployeesModule { }
