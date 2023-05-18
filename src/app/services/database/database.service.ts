@@ -18,6 +18,11 @@ export class DatabaseService {
     return collectionData(collectionReference)
   }
 
+  getAllDocumentsWhitIdSubscribable(table:string){
+    let collectionReference = collection(this.firestore,table)
+    return collectionData(collectionReference,{idField:'idDocument'})
+  }
+
   activeOrInactivePerson(table:string,idDocument:string,status:boolean){
     let documentReference = doc(this.firestore,table,idDocument)
     return updateDoc(documentReference,{isActive:status})

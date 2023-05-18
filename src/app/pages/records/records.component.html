@@ -1,1 +1,9 @@
-<p>records works!</p>
+<nav class="navbar bg-light">
+    <div class="container-fluid">
+        <app-form-filter [headers]="headerTable" [keys]="keyRecords" (objectToFilter)="filterfunction($event)"></app-form-filter>
+    </div>
+</nav>
+<div class="table-responsive">
+    <app-table-records [headers]="headerTable" [data]="recordDocuments" [keys]="keyRecords"></app-table-records>
+</div>
+<app-model-maps></app-model-maps>
