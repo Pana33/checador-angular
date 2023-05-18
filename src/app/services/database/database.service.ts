@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, doc, docData, updateDoc } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, deleteDoc, doc, docData, updateDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +21,11 @@ export class DatabaseService {
   activeOrInactivePerson(table:string,idDocument:string,status:boolean){
     let documentReference = doc(this.firestore,table,idDocument)
     return updateDoc(documentReference,{isActive:status})
+  }
+
+  deletDocument(table:string,idDocument:string){
+    let documentReference = doc(this.firestore,table,idDocument)
+    return deleteDoc(documentReference)
   }
 
 }

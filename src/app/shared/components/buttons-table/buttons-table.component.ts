@@ -15,6 +15,20 @@ export class ButtonsTableComponent {
   @Input() doc!:EmployeeDb | UserDb
 
   constructor(private emitter:EmittersService,private db:DatabaseService){}
+  
+  deletPerson(){
+    //Falta agregar algun mensaje de error en caso de que falle la eliminacion
+    let keysDocument = Object.keys(this.doc)
+    if(keysDocument.includes("emailEmployee")){
+      this.db.deletDocument(TablesDb.EMPLOYEES,this.idDoc).catch(err=>{
+        console.log("No se pudo eliminar el registro: ",err)
+      })
+    }else if(keysDocument.includes("emailUser")){
+      this.db.deletDocument(TablesDb.USERS,this.idDoc).catch(err=>{
+        console.log("No se pudo eliminar el registro: ",err)
+      })
+    }
+  }
 
   changeValIsActive(){
     //Falta agregar algun mensaje de error en caso de que falle la actualizacion
