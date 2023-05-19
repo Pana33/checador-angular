@@ -3,6 +3,7 @@ import { EmployeeDb, UserDb } from '../../models/type-person/type-person';
 import { EmittersService } from 'src/app/services/emitters/emitters.service';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { TablesDb } from '../../models/tables-db/tables-db';
+import { AlertsService } from 'src/app/services/alerts/alerts.service';
 
 @Component({
   selector: 'app-buttons-table',
@@ -14,32 +15,42 @@ export class ButtonsTableComponent {
   @Input() idDoc!:string
   @Input() doc!:EmployeeDb | UserDb
 
-  constructor(private emitter:EmittersService,private db:DatabaseService){}
+  constructor(private emitter:EmittersService,private db:DatabaseService,private alert:AlertsService){}
   
   deletPerson(){
-    //Falta agregar algun mensaje de error en caso de que falle la eliminacion
-    let keysDocument = Object.keys(this.doc)
-    if(keysDocument.includes("emailEmployee")){
-      this.db.deletDocument(TablesDb.EMPLOYEES,this.idDoc).catch(err=>{
-        console.log("No se pudo eliminar el registro: ",err)
-      })
-    }else if(keysDocument.includes("emailUser")){
-      this.db.deletDocument(TablesDb.USERS,this.idDoc).catch(err=>{
-        console.log("No se pudo eliminar el registro: ",err)
-      })
-    }
+    this.alert.showYesNoQuestionAlert("Eliminar registro","Los datos no podran recuperarse, ¿quieres continuar?","info").then(res=>{
+      let keysDocument = Object.keys(this.doc)
+      if(keysDocument.includes("emailEmployee")){
+        this.db.deletDocument(TablesDb.EMPLOYEES,this.idDoc).then(resDelEmployee=>{
+          this.alert.showSuccessfulOperation()
+        }).catch(err=>{
+          this.alert.showErrorOperation()
+        })
+      }else if(keysDocument.includes("emailUser")){
+        this.db.deletDocument(TablesDb.USERS,this.idDoc).then(resDelUser=>{
+          this.alert.showSuccessfulOperation()
+        }).catch(err=>{
+          this.alert.showErrorOperation()
+        })
+      }
+    })
   }
 
   changeValIsActive(){
-    //Falta agregar algun mensaje de error en caso de que falle la actualizacion
     let keysDocument = Object.keys(this.doc)
     if(keysDocument.includes("emailEmployee")){
-      this.db.activeOrInactivePerson(TablesDb.EMPLOYEES,this.idDoc,!this.doc.isActive).catch(err=>{
-        console.log("No se pudo actualizar el estatus: ",err)
+      let msgAlert = this.doc.isActive?"Empleado deshabilitado":"Empleado habilitado"
+      this.db.activeOrInactivePerson(TablesDb.EMPLOYEES,this.idDoc,!this.doc.isActive).then(resUpdateEmployee=>{
+        this.alert.showSuccessfulOperation(msgAlert)
+      }).catch(err=>{
+        this.alert.showErrorOperation()
       })
     }else if(keysDocument.includes("emailUser")){
-      this.db.activeOrInactivePerson(TablesDb.USERS,this.idDoc,!this.doc.isActive).catch(err=>{
-        console.log("No se pudo actualizar el estatus: ",err)
+      let msgAlert = this.doc.isActive?"Usuario deshabilitado":"Usuario habilitado"
+      this.db.activeOrInactivePerson(TablesDb.USERS,this.idDoc,!this.doc.isActive).then(resUpdateUser=>{
+        this.alert.showSuccessfulOperation(msgAlert)
+      }).catch(err=>{
+        this.alert.showErrorOperation()
       })
     }
   }
