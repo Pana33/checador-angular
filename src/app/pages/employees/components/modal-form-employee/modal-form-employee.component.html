@@ -30,9 +30,15 @@
                     </form>
                 </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" *ngIf="!showSpinner">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="formAddEmployee.reset()">Cancelar</button>
                 <button type="button" class="btn btn-success" [disabled]="formAddEmployee.invalid" (click)="addOrUpdateEmploye()">Confirmar</button>
+            </div>
+            <div class="modal-footer" *ngIf="showSpinner">
+                <button type="button" class="btn btn-info" disabled>
+                    <span class="spinner-border spinner-border-sm text-light"></span>
+                    Cargando...
+                </button>
             </div>
         </div>
     </div>

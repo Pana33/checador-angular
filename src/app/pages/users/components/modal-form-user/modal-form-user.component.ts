@@ -27,6 +27,7 @@ export class ModalFormUserComponent {
   headerModalUser!:string
   httpResponse:Subscription | null = null
   emailUser:string = ""
+  showSpinner:boolean = false
 
   ngOnInit(): void {
     this.initForm()
@@ -54,6 +55,7 @@ export class ModalFormUserComponent {
   }
 
   addOrUpdateUser(){
+    this.showSpinner = true
     if(this.operation == "add"){
       this.httpResponse = this.func.addUser(this.formAddUser.value).subscribe(resFunc =>{
         if(resFunc.estatus == "ok"){
@@ -61,6 +63,7 @@ export class ModalFormUserComponent {
         }else{
           this.alert.showErrorOperation()
         }
+        this.showSpinner = false
       })
     }else if(this.operation = "update"){
       let makeFullName = {
@@ -70,8 +73,10 @@ export class ModalFormUserComponent {
       delete dataToFirebase.emailUser
       this.db.updateDocument(TablesDb.USERS,this.emailUser,dataToFirebase).then(resUpdate=>{
         this.alert.showSuccessfulOperation()
+        this.showSpinner = false
       }).catch(errUpdate=>{
         this.alert.showErrorOperation()
+        this.showSpinner = false
       })
     }
   }

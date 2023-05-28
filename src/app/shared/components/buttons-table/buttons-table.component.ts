@@ -20,9 +20,11 @@ export class ButtonsTableComponent implements OnDestroy {
   constructor(private emitter:EmittersService,private db:DatabaseService,private alert:AlertsService,private func:FunctionsApiService){}
   
   httpResponse!:Subscription
+  showSpinner:boolean = false
 
   deletPerson(){
     this.alert.showYesNoQuestionAlert("Eliminar registro","Los datos no podran recuperarse, ¿quieres continuar?","info").then(res=>{
+      this.showSpinner = true
       let keysDocument = Object.keys(this.doc)
       if(keysDocument.includes("emailEmployee")){
         this.httpResponse = this.func.deleteEmployee(this.idDoc).subscribe(resDelet=>{
@@ -31,6 +33,7 @@ export class ButtonsTableComponent implements OnDestroy {
           }else{
             this.alert.showErrorOperation()
           }
+          this.showSpinner = false
         })
       }else if(keysDocument.includes("emailUser")){
         this.httpResponse = this.func.deleteUser(this.idDoc).subscribe(resDelet=>{
@@ -39,12 +42,14 @@ export class ButtonsTableComponent implements OnDestroy {
           }else{
             this.alert.showErrorOperation()
           }
+          this.showSpinner = false
         })
       }
     })
   }
 
   changeValIsActive(){
+    this.showSpinner = true
     let keysDocument = Object.keys(this.doc)
     if(keysDocument.includes("emailEmployee")){
       let msgAlert = this.doc.isActive?"Empleado deshabilitado":"Empleado habilitado"
@@ -54,6 +59,7 @@ export class ButtonsTableComponent implements OnDestroy {
         }else{
           this.alert.showErrorOperation()
         }
+        this.showSpinner = false
       })
     }else if(keysDocument.includes("emailUser")){
       let msgAlert = this.doc.isActive?"Usuario deshabilitado":"Usuario habilitado"
@@ -63,6 +69,7 @@ export class ButtonsTableComponent implements OnDestroy {
         }else{
           this.alert.showErrorOperation()
         }
+        this.showSpinner = false
       })
     }
   }

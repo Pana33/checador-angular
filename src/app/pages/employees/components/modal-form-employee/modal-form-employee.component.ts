@@ -27,6 +27,7 @@ export class ModalFormEmployeeComponent implements OnInit, OnDestroy {
   headerModalEmployee!:string
   httpResponse:Subscription | null = null
   emailEmployee:string = ""
+  showSpinner:boolean = false
 
   ngOnInit(): void {
     this.initForm()
@@ -54,6 +55,7 @@ export class ModalFormEmployeeComponent implements OnInit, OnDestroy {
   }
 
   addOrUpdateEmploye(){
+    this.showSpinner = true
     if(this.operation == "add"){
       this.httpResponse = this.func.addEmployee(this.formAddEmployee.value).subscribe(resFunc=>{
         if(resFunc.estatus == "ok"){
@@ -61,6 +63,7 @@ export class ModalFormEmployeeComponent implements OnInit, OnDestroy {
         }else{
           this.alert.showErrorOperation()
         }
+        this.showSpinner = false
       })
     }else if(this.operation = "update"){
       let makeFullName = {
@@ -70,8 +73,10 @@ export class ModalFormEmployeeComponent implements OnInit, OnDestroy {
       delete dataToFirebase.emailEmployee
       this.db.updateDocument(TablesDb.EMPLOYEES,this.emailEmployee,dataToFirebase).then(resUpdate=>{
         this.alert.showSuccessfulOperation()
+        this.showSpinner = false
       }).catch(errUpdate=>{
         this.alert.showErrorOperation()
+        this.showSpinner = false
       })
     }
   }
