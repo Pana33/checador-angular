@@ -25,16 +25,17 @@ export class ButtonsTableComponent implements OnDestroy {
     this.alert.showYesNoQuestionAlert("Eliminar registro","Los datos no podran recuperarse, ¿quieres continuar?","info").then(res=>{
       let keysDocument = Object.keys(this.doc)
       if(keysDocument.includes("emailEmployee")){
-        this.db.deletDocument(TablesDb.EMPLOYEES,this.idDoc).then(resDelEmployee=>{
-          this.alert.showSuccessfulOperation()
-        }).catch(err=>{
-          this.alert.showErrorOperation()
+        this.httpResponse = this.func.deleteEmployee(this.idDoc).subscribe(resDelet=>{
+          if(resDelet.estatus == "ok"){
+            this.alert.showSuccessfulOperation("Empleado eliminado")
+          }else{
+            this.alert.showErrorOperation()
+          }
         })
       }else if(keysDocument.includes("emailUser")){
         this.httpResponse = this.func.deleteUser(this.idDoc).subscribe(resDelet=>{
-          console.log(resDelet)
           if(resDelet.estatus == "ok"){
-            this.alert.showSuccessfulOperation("Eliminado")
+            this.alert.showSuccessfulOperation("Usuario eliminado")
           }else{
             this.alert.showErrorOperation()
           }
@@ -47,15 +48,16 @@ export class ButtonsTableComponent implements OnDestroy {
     let keysDocument = Object.keys(this.doc)
     if(keysDocument.includes("emailEmployee")){
       let msgAlert = this.doc.isActive?"Empleado deshabilitado":"Empleado habilitado"
-      this.db.activeOrInactivePerson(TablesDb.EMPLOYEES,this.idDoc,!this.doc.isActive).then(resUpdateEmployee=>{
-        this.alert.showSuccessfulOperation(msgAlert)
-      }).catch(err=>{
-        this.alert.showErrorOperation()
+      this.httpResponse = this.func.disableEnableEmployee(this.idDoc,this.doc.isActive).subscribe(resDE=>{
+        if(resDE.estatus == "ok"){
+          this.alert.showSuccessfulOperation(msgAlert)
+        }else{
+          this.alert.showErrorOperation()
+        }
       })
     }else if(keysDocument.includes("emailUser")){
       let msgAlert = this.doc.isActive?"Usuario deshabilitado":"Usuario habilitado"
       this.httpResponse = this.func.disableEnableUser(this.idDoc,this.doc.isActive).subscribe(resDE=>{
-        console.log(resDE)
         if(resDE.estatus == "ok"){
           this.alert.showSuccessfulOperation(msgAlert)
         }else{

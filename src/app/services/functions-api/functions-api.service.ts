@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { RouteFunctionsApi } from 'src/app/shared/models/route-functions-api/route-functions-api';
 import { FormGroup } from '@angular/forms';
-import { EmployeeDb, UserDb } from 'src/app/shared/models/type-person/type-person';
 
 interface ResponseFunctions {
   estatus:string
@@ -40,11 +39,18 @@ export class FunctionsApiService {
     return this.http.post<ResponseFunctions>(this.pathApi + RouteFunctionsApi.ADD_EMPLOYEE,data)
   }
 
-  disableEnableEmployee(data:FormGroup){
+  disableEnableEmployee(emailEmployee:string,isActive:boolean){
+    let data = {
+      emailEmployee:emailEmployee,
+      isActive:isActive,
+    }
     return this.http.put<ResponseFunctions>(this.pathApi + RouteFunctionsApi.UPDATE_EMPLOYEE,data)
   }
 
-  deleteEmployee(data:FormGroup){
+  deleteEmployee(emailEmployee:string){
+    let data = {
+      emailEmployee:emailEmployee
+    }
     return this.http.put<ResponseFunctions>(this.pathApi + RouteFunctionsApi.DELETE_EMPLOYEE,data)
   }
 
