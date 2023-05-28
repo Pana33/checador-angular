@@ -31,10 +31,13 @@ export class ButtonsTableComponent implements OnDestroy {
           this.alert.showErrorOperation()
         })
       }else if(keysDocument.includes("emailUser")){
-        this.db.deletDocument(TablesDb.USERS,this.idDoc).then(resDelUser=>{
-          this.alert.showSuccessfulOperation()
-        }).catch(err=>{
-          this.alert.showErrorOperation()
+        this.httpResponse = this.func.deleteUser(this.idDoc).subscribe(resDelet=>{
+          console.log(resDelet)
+          if(resDelet.estatus == "ok"){
+            this.alert.showSuccessfulOperation("Eliminado")
+          }else{
+            this.alert.showErrorOperation()
+          }
         })
       }
     })
@@ -51,7 +54,7 @@ export class ButtonsTableComponent implements OnDestroy {
       })
     }else if(keysDocument.includes("emailUser")){
       let msgAlert = this.doc.isActive?"Usuario deshabilitado":"Usuario habilitado"
-      this.httpResponse = this.func.disableEnableUser(this.doc as UserDb).subscribe(resDE=>{
+      this.httpResponse = this.func.disableEnableUser(this.idDoc,this.doc.isActive).subscribe(resDE=>{
         console.log(resDE)
         if(resDE.estatus == "ok"){
           this.alert.showSuccessfulOperation(msgAlert)
@@ -59,11 +62,6 @@ export class ButtonsTableComponent implements OnDestroy {
           this.alert.showErrorOperation()
         }
       })
-      // this.db.activeOrInactivePerson(TablesDb.USERS,this.idDoc,!this.doc.isActive).then(resUpdateUser=>{
-      //   this.alert.showSuccessfulOperation(msgAlert)
-      // }).catch(err=>{
-      //   this.alert.showErrorOperation()
-      // })
     }
   }
 

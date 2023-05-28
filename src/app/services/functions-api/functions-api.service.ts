@@ -21,11 +21,18 @@ export class FunctionsApiService {
     return this.http.post<ResponseFunctions>(this.pathApi + RouteFunctionsApi.ADD_USER,data)
   }
 
-  disableEnableUser(data:UserDb){
+  disableEnableUser(emailUser:string,isActive:boolean){
+    let data = {
+      emailUser:emailUser,
+      isActive:isActive,
+    }
     return this.http.put<ResponseFunctions>(this.pathApi + RouteFunctionsApi.UPDATE_USER,data)
   }
 
-  deleteUser(data:FormGroup){
+  deleteUser(emailUser:string){
+    let data = {
+      emailUser:emailUser
+    }
     return this.http.put<ResponseFunctions>(this.pathApi + RouteFunctionsApi.DELETE_USER,data)
   }
 
