@@ -1,7 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { AlertsService } from 'src/app/services/alerts/alerts.service';
+import { DatabaseService } from 'src/app/services/database/database.service';
 import { EmittersService } from 'src/app/services/emitters/emitters.service';
+import { FunctionsApiService } from 'src/app/services/functions-api/functions-api.service';
+import { TablesDb } from 'src/app/shared/models/tables-db/tables-db';
 import { EmployeeDb } from 'src/app/shared/models/type-person/type-person';
 
 @Component({
@@ -11,12 +15,18 @@ import { EmployeeDb } from 'src/app/shared/models/type-person/type-person';
 })
 export class ModalFormEmployeeComponent implements OnInit, OnDestroy {
 
-  constructor(private fb:FormBuilder,private emitter:EmittersService){}
+  constructor(private fb:FormBuilder,
+    private emitter:EmittersService,
+    private func:FunctionsApiService,
+    private alert:AlertsService,
+    private db:DatabaseService){}
 
   formAddEmployee!:FormGroup
   operation:string = ""
   subEmployeeToEdit!:Subscription
   headerModalEmployee!:string
+  httpResponse:Subscription | null = null
+  emailEmployee:string = ""
 
   ngOnInit(): void {
     this.initForm()
@@ -24,9 +34,11 @@ export class ModalFormEmployeeComponent implements OnInit, OnDestroy {
       if(typeof(resEmployee)=="string"){
         this.headerModalEmployee = "Agregar empleado"
         this.operation = "add"
+        this.emailEmployee = ""
       }else{
         this.headerModalEmployee = "Editar empleado"
         this.operation = "update"
+        this.emailEmployee = resEmployee.emailEmployee
         this.initForm(resEmployee.firstName,resEmployee.lastName,resEmployee.emailEmployee,resEmployee.curp)
       }
     })
@@ -42,16 +54,31 @@ export class ModalFormEmployeeComponent implements OnInit, OnDestroy {
   }
 
   addOrUpdateEmploye(){
-    //Crear funcion para recibir la data y crear el empleado
     if(this.operation == "add"){
-      console.log("Agregando: ",this.formAddEmployee.value)
+      this.httpResponse = this.func.addEmployee(this.formAddEmployee.value).subscribe(resFunc=>{
+        if(resFunc.estatus == "ok"){
+          this.alert.showSuccessfulOperation()
+        }else{
+          this.alert.showErrorOperation()
+        }
+      })
     }else if(this.operation = "update"){
-      console.log("Editando: ",this.formAddEmployee.value)
+      let makeFullName = {
+        fullName:this.formAddEmployee.value.firstName + " " + this.formAddEmployee.value.lastName
+      }
+      let dataToFirebase = {...this.formAddEmployee.value,...makeFullName}
+      delete dataToFirebase.emailEmployee
+      this.db.updateDocument(TablesDb.EMPLOYEES,this.emailEmployee,dataToFirebase).then(resUpdate=>{
+        this.alert.showSuccessfulOperation()
+      }).catch(errUpdate=>{
+        this.alert.showErrorOperation()
+      })
     }
   }
 
   ngOnDestroy(): void {
     this.subEmployeeToEdit?.unsubscribe()
+    this.httpResponse?.unsubscribe()
   }
 
 }
