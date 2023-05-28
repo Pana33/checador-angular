@@ -9,6 +9,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'src/app/shared/components/table/table.module';
 import { FormFilterModule } from 'src/app/shared/components/form-filter/form-filter.module';
 import { ButtonModalAddModule } from 'src/app/shared/components/button-modal-add/button-modal-add.module';
+import { HttpClientModule } from '@angular/common/http';
+import { FunctionsApiService } from 'src/app/services/functions-api/functions-api.service';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,10 @@ import { ButtonModalAddModule } from 'src/app/shared/components/button-modal-add
     TableModule,
     FormFilterModule,
     ButtonModalAddModule,
+    HttpClientModule,
+  ],
+  providers:[
+    FunctionsApiService,
   ]
 })
 export class UsersModule { }

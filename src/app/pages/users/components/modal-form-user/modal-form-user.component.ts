@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { EmittersService } from 'src/app/services/emitters/emitters.service';
+import { FunctionsApiService } from 'src/app/services/functions-api/functions-api.service';
 import { UserDb } from 'src/app/shared/models/type-person/type-person';
 
 @Component({
@@ -11,12 +12,13 @@ import { UserDb } from 'src/app/shared/models/type-person/type-person';
 })
 export class ModalFormUserComponent {
 
-  constructor(private fb:FormBuilder,private emitter:EmittersService){}
+  constructor(private fb:FormBuilder,private emitter:EmittersService,private func:FunctionsApiService){}
 
   formAddUser!:FormGroup
   operation:string = ""
   subUserToEdit!:Subscription
   headerModalUser!:string
+  httpResponse:Subscription | null = null
 
   ngOnInit(): void {
     this.initForm()
@@ -44,7 +46,10 @@ export class ModalFormUserComponent {
   addOrUpdateUser(){
     //Crear funcion para recibir la data y crear el empleado
     if(this.operation == "add"){
-      console.log("Agregando: ",this.formAddUser.value)
+      this.httpResponse = this.func.addUser(this.formAddUser.value).subscribe(resFunc =>{
+        console.log(resFunc)
+      })
+      // console.log("Agregando: ",this.formAddUser.value)
     }else if(this.operation = "update"){
       console.log("Editando: ",this.formAddUser.value)
     }
@@ -52,6 +57,7 @@ export class ModalFormUserComponent {
 
   ngOnDestroy(): void {
     this.subUserToEdit?.unsubscribe()
+    this.httpResponse?.unsubscribe()
   }
 
 }
