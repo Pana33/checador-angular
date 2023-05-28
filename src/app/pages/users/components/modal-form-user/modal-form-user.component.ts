@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { AlertsService } from 'src/app/services/alerts/alerts.service';
+import { DatabaseService } from 'src/app/services/database/database.service';
 import { EmittersService } from 'src/app/services/emitters/emitters.service';
 import { FunctionsApiService } from 'src/app/services/functions-api/functions-api.service';
+import { TablesDb } from 'src/app/shared/models/tables-db/tables-db';
 import { UserDb } from 'src/app/shared/models/type-person/type-person';
 
 @Component({
@@ -12,13 +15,18 @@ import { UserDb } from 'src/app/shared/models/type-person/type-person';
 })
 export class ModalFormUserComponent {
 
-  constructor(private fb:FormBuilder,private emitter:EmittersService,private func:FunctionsApiService){}
+  constructor(private fb:FormBuilder,
+    private emitter:EmittersService,
+    private func:FunctionsApiService,
+    private alert:AlertsService,
+    private db:DatabaseService){}
 
   formAddUser!:FormGroup
   operation:string = ""
   subUserToEdit!:Subscription
   headerModalUser!:string
   httpResponse:Subscription | null = null
+  emailUser:string = ""
 
   ngOnInit(): void {
     this.initForm()
@@ -26,9 +34,11 @@ export class ModalFormUserComponent {
       if(typeof(resUser)=="string"){
         this.headerModalUser = "Agregar usuario"
         this.operation = "add"
+        this.emailUser = ""
       }else{
         this.headerModalUser = "Editar usuario"
         this.operation = "update"
+        this.emailUser = resUser.emailUser
         this.initForm(resUser.firstName,resUser.lastName,resUser.emailUser,resUser.isAdmin)
       }
     })
@@ -44,14 +54,25 @@ export class ModalFormUserComponent {
   }
 
   addOrUpdateUser(){
-    //Crear funcion para recibir la data y crear el empleado
     if(this.operation == "add"){
       this.httpResponse = this.func.addUser(this.formAddUser.value).subscribe(resFunc =>{
-        console.log(resFunc)
+        if(resFunc.estatus == "ok"){
+          this.alert.showSuccessfulOperation()
+        }else{
+          this.alert.showErrorOperation()
+        }
       })
-      // console.log("Agregando: ",this.formAddUser.value)
     }else if(this.operation = "update"){
-      console.log("Editando: ",this.formAddUser.value)
+      let makeFullName = {
+        fullName:this.formAddUser.value.firstName + " " + this.formAddUser.value.lastName
+      }
+      let dataToFirebase = {...this.formAddUser.value,...makeFullName}
+      delete dataToFirebase.emailUser
+      this.db.updateDocument(TablesDb.USERS,this.emailUser,dataToFirebase).then(resUpdate=>{
+        this.alert.showSuccessfulOperation()
+      }).catch(errUpdate=>{
+        this.alert.showErrorOperation()
+      })
     }
   }
 
