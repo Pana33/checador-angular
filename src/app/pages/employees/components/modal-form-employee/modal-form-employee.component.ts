@@ -36,11 +36,13 @@ export class ModalFormEmployeeComponent implements OnInit, OnDestroy {
         this.headerModalEmployee = "Agregar empleado"
         this.operation = "add"
         this.emailEmployee = ""
+        this.formAddEmployee.get("emailEmployee")?.enable()
       }else{
         this.headerModalEmployee = "Editar empleado"
         this.operation = "update"
         this.emailEmployee = resEmployee.emailEmployee
         this.initForm(resEmployee.firstName,resEmployee.lastName,resEmployee.emailEmployee,resEmployee.curp)
+        this.formAddEmployee.get("emailEmployee")?.disable()
       }
     })
   }

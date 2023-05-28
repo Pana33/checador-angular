@@ -36,11 +36,13 @@ export class ModalFormUserComponent {
         this.headerModalUser = "Agregar usuario"
         this.operation = "add"
         this.emailUser = ""
+        this.formAddUser.get("emailUser")?.enable()
       }else{
         this.headerModalUser = "Editar usuario"
         this.operation = "update"
         this.emailUser = resUser.emailUser
         this.initForm(resUser.firstName,resUser.lastName,resUser.emailUser,resUser.isAdmin)
+        this.formAddUser.get("emailUser")?.disable()
       }
     })
   }
