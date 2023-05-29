@@ -4,5 +4,5 @@ export enum PageRoutes {
     REGISTROS = "registros",
     EMPLOYEES = "empleados",
     USUARIOS = "usuarios",
-    SETTINGS = "configuracion",
+    LOCATIONS = "ubicaciones",
 }

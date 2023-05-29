@@ -16,7 +16,7 @@ const routes: Routes = [
         path:PageRoutes.USUARIOS,loadChildren: () => import('../../users/module/users.module').then(m => m.UsersModule)
       },
       {
-        path:PageRoutes.SETTINGS,loadChildren: () => import('../../settings/module/settings.module').then(m => m.SettingsModule)
+        path:PageRoutes.LOCATIONS,loadChildren: () => import('../../locations/module/locations.module').then(m => m.LocationsModule)
       },
       {
         path:'**',redirectTo:PageRoutes.REGISTROS,pathMatch:'full'
