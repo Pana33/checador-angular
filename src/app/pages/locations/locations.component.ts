@@ -45,6 +45,20 @@ export class LocationsComponent implements OnInit, OnDestroy{
     }
   }
 
+  centerMap(lat:number,lng:number){
+    console.log(lat,lng)
+  }
+
+  updateLocation(event:MouseEvent,idDocument:string){
+    event.stopPropagation()
+    console.log(idDocument)
+  }
+
+  deletLocation(event:MouseEvent,idDocument:string){
+    event.stopPropagation()
+    console.log(idDocument)
+  }
+
   ngOnDestroy(): void {
     this.subLocationsData?.unsubscribe()
   }
