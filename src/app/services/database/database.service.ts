@@ -23,19 +23,9 @@ export class DatabaseService {
     return collectionData(collectionReference,{idField:'idDocument'})
   }
 
-  activeOrInactivePerson(table:string,idDocument:string,status:boolean){
-    let documentReference = doc(this.firestore,table,idDocument)
-    return updateDoc(documentReference,{isActive:status})
-  }
-
   updateDocument(table:string,idDocument:string,data:any){
     let documentReference = doc(this.firestore,table,idDocument)
     return updateDoc(documentReference,data)
-  }
-
-  deletDocument(table:string,idDocument:string){
-    let documentReference = doc(this.firestore,table,idDocument)
-    return deleteDoc(documentReference)
   }
 
 }
