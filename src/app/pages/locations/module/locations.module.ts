@@ -5,6 +5,7 @@ import { LocationsRoutingModule } from './locations-routing.module';
 import { LocationsComponent } from '../locations.component';
 import { FormCollapseLocationsComponent } from '../components/form-collapse-locations/form-collapse-locations.component';
 import { FormFilterModule } from 'src/app/shared/components/form-filter/form-filter.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,6 +17,8 @@ import { FormFilterModule } from 'src/app/shared/components/form-filter/form-fil
     CommonModule,
     LocationsRoutingModule,
     FormFilterModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class LocationsModule { }
