@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-form-collapse-locations',
-  templateUrl: './form-collapse-locations.component.html',
-  styleUrls: ['./form-collapse-locations.component.scss']
+  selector: 'app-form-locations',
+  templateUrl: './form-locations.component.html',
+  styleUrls: ['./form-locations.component.scss']
 })
-export class FormCollapseLocationsComponent implements OnInit{
+export class FormLocationsComponent  implements OnInit{
 
   constructor(private fb:FormBuilder){}
 

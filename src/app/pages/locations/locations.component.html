@@ -1,7 +1,7 @@
 <nav class="navbar bg-light">
     <div class="container-fluid">
         <app-form-filter [headers]="headerTable" [keys]="keyEmployees" (objectToFilter)="filterData($event)"></app-form-filter>
-        <app-form-collapse-locations></app-form-collapse-locations>
+        <app-form-locations></app-form-locations>
     </div>
 </nav>
 <div class="d-flex flex-row gap-2 overflow-auto p-2">
