@@ -4,6 +4,7 @@ import { AlertsService } from 'src/app/services/alerts/alerts.service';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { GoogleMapsApiService } from 'src/app/services/google-maps-api/google-maps-api.service';
 import { FilterParam } from 'src/app/shared/models/filter-param/filter-param';
+import { LocationsMaps } from 'src/app/shared/models/locations-maps/locations-maps';
 import { TablesDb } from 'src/app/shared/models/tables-db/tables-db';
 
 @Component({
@@ -17,8 +18,8 @@ export class LocationsComponent implements OnInit, OnDestroy{
 
   headerTable:string[] = ["Nombre","Direccion"]
   keyEmployees:string[] = ["name","address"]
-  locationsData:any
-  locationsDataComplet:any
+  locationsData!:LocationsMaps[]
+  locationsDataComplet!:LocationsMaps[]
   subLocationsData!:Subscription
   paramsToFilter:FilterParam | null = null
   map!:google.maps.Map
@@ -27,8 +28,8 @@ export class LocationsComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {//revisar que pasa si aun no hay direcciones guardadas
     this.subLocationsData = this.db.getAllDocumentsWhitIdSubscribable(TablesDb.LOCATIONS).subscribe(resLoc=>{
-      this.locationsData = resLoc
-      this.locationsDataComplet = resLoc
+      this.locationsData = resLoc as LocationsMaps[]
+      this.locationsDataComplet = resLoc as LocationsMaps[]
       if (this.paramsToFilter != null) {
         this.filterData(this.paramsToFilter)
       }
@@ -42,9 +43,9 @@ export class LocationsComponent implements OnInit, OnDestroy{
     if (paramsObject.filterBy != "" && paramsObject.column != "none") {
       let arrowFunctionToFilter
       if (paramsObject.exactMatch) {
-        arrowFunctionToFilter = (location:any) => String(location[paramsObject.column])== paramsObject.filterBy
+        arrowFunctionToFilter = (location:LocationsMaps) => String(location[paramsObject.column as keyof LocationsMaps])== paramsObject.filterBy
       } else {
-        arrowFunctionToFilter = (location: any) => String(location[paramsObject.column]).includes(paramsObject.filterBy)
+        arrowFunctionToFilter = (location: LocationsMaps) => String(location[paramsObject.column as keyof LocationsMaps]).includes(paramsObject.filterBy)
       }
       this.locationsData = this.locationsData.filter(arrowFunctionToFilter)
     }
@@ -57,7 +58,7 @@ export class LocationsComponent implements OnInit, OnDestroy{
       this.mapService.initMap(lat,lng,"map",14).then((resMap)=>{
         this.map = resMap!
         this.mapLoaded = true
-        this.markersOnMap = this.mapService.putMarkers(this.locationsDataComplet,this.map)
+        this.markersOnMap = this.mapService.putMarkersLocations(this.locationsDataComplet,this.map)
       }).catch(errMap=>{
         this.alert.showErrorOperation("Carga de mapa","No se pudo cargar el mapa, por favor intenta nuevamente","error")
       })

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Loader } from "@googlemaps/js-api-loader"
+import { LocationsMaps } from 'src/app/shared/models/locations-maps/locations-maps';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class GoogleMapsApiService {
     map.setZoom(14)
   }
 
-  putMarkers(locations:any,map:google.maps.Map){
+  putMarkersLocations(locations:LocationsMaps[],map:google.maps.Map){
     let markersToReturn:google.maps.Marker[] = []
     for(let location of locations){
       let contentString =
@@ -49,6 +50,7 @@ export class GoogleMapsApiService {
         content: contentString,
         ariaLabel: location.name,
       });
+
 
       let marker = new google.maps.Marker({
         position: {lat:location.lat,lng:location.lng},
