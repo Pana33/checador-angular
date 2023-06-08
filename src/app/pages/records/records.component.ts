@@ -15,8 +15,8 @@ export class RecordsComponent implements OnInit, OnDestroy{
 
   constructor(private db:DatabaseService){}
 
-  headerTable = ["Nombre","Email","Curp","Fecha","Tipo","Mapa"]
-  keyRecords = ["fullName","emailEmployee","curp","dateTime","type"]
+  headerTable = ["Nombre","Email","Curp","Fecha","Tipo","Lugar","Mapa"]
+  keyRecords = ["fullName","emailEmployee","curp","dateTime","type","namePlace"]
   recordDocuments!:RecordEmployee[]
   recordDocumentsComplet!:RecordEmployee[]
   subRecordDocuments!:Subscription
@@ -68,7 +68,7 @@ export class RecordsComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    
+    this.subRecordDocuments?.unsubscribe()
   }
 
 }

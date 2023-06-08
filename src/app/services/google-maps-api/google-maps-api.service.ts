@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Loader } from "@googlemaps/js-api-loader"
 import { LocationsMaps } from 'src/app/shared/models/locations-maps/locations-maps';
+import { RecordEmployee } from 'src/app/shared/models/record-employee/record-employee';
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +56,43 @@ export class GoogleMapsApiService {
         map,
         title: location.name,
       });
+      marker.addListener("click", () => {
+        infowindow.open({
+          anchor: marker,
+          map,
+        });
+      });
+      markersToReturn.push(marker)
+    }
+    return markersToReturn
+  }
+
+  putMarkersRecords(records:RecordEmployee[],map:google.maps.Map){
+    let markersToReturn:google.maps.Marker[] = []
+    for(let record of records){
+      let currentDate = new Date(record.dateTime.seconds*1000)
+      let contentString =
+      '<div id="content">' +
+      '<h6>' + record.type + '</h6>' +
+      '<div>' +
+      '<p class="fw-bold"><b>' + record.namePlace + '</b></p>' +
+      '<p>' + record.fullName + '</p>' +
+      '<p>' + currentDate.toLocaleString("es-mx") + '</p>' +
+      '</div>' +
+      '</div>'
+      let infowindow = new google.maps.InfoWindow({
+        content: contentString,
+        ariaLabel: record.fullName,
+      });
+      let marker = new google.maps.Marker({
+        position: {lat:record.lat,lng:record.lng},
+        map,
+        title: record.fullName,
+      });
+      infowindow.open({
+        anchor: marker,
+        map,
+      })
       marker.addListener("click", () => {
         infowindow.open({
           anchor: marker,

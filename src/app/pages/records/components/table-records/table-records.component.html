@@ -10,7 +10,7 @@
                 <ng-container *ngFor="let key of keys">
                     <td *ngIf="key!='dateTime';else idDtCreated">{{doc[key]}}</td>
                     <ng-template #idDtCreated>
-                        <td>{{doc["dateTime"].toDate() | date: "dd-MM-yyyy"}}</td>
+                        <td>{{doc["dateTime"].toDate() | date: "dd-MM-yyyy HH:mm:ss"}}</td>
                     </ng-template>
                 </ng-container>
                 <td>
