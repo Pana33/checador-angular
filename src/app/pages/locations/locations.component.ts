@@ -27,6 +27,7 @@ export class LocationsComponent implements OnInit, OnDestroy{
   mapLoaded:boolean = false
   markersOnMap:google.maps.Marker[] | null = null
   formLocation!:FormGroup
+  updateDocument:string | null = null
   showSpinner:boolean = false
   inputAutocomplete!:google.maps.places.Autocomplete
   markerAutocomplete:google.maps.Marker | null = null
@@ -42,8 +43,9 @@ export class LocationsComponent implements OnInit, OnDestroy{
       if(this.mapLoaded){
         if(this.markersOnMap != null){
           this.mapService.removeMarkers(this.markersOnMap)
+          this.markersOnMap = null  
         }
-        this.mapService.putMarkersLocations(this.locationsDataComplet,this.map)
+        this.markersOnMap = this.mapService.putMarkersLocations(this.locationsDataComplet,this.map)
       }else{
         this.initMap(this.locationsData[0].lat,this.locationsData[0].lng)
       }
@@ -78,17 +80,33 @@ export class LocationsComponent implements OnInit, OnDestroy{
   addLocation(){
     this.formLocation.patchValue({"lat":this.markerAutocomplete?.getPosition()?.lat()})
     this.formLocation.patchValue({"lng":this.markerAutocomplete?.getPosition()?.lng()})
-    this.db.createDocument(this.formLocation.value,TablesDb.LOCATIONS).then(resCreate=>{
-      this.formLocation.reset()
-      this.alert.showSuccessfulOperation()
-    }).catch(err=>{
-      this.alert.showErrorOperation()
-    })
+    if(this.updateDocument == null){
+      this.db.createDocument(this.formLocation.value,TablesDb.LOCATIONS).then(resCreate=>{
+        this.formLocation.reset()
+        this.alert.showSuccessfulOperation()
+      }).catch(err=>{
+        this.alert.showErrorOperation()
+      })
+    }else{
+      this.db.updateDocument(TablesDb.LOCATIONS,this.updateDocument,this.formLocation.value).then(resUpd=>{
+        this.alert.showSuccessfulOperation()
+        this.updateDocument = null
+        this.formLocation.reset()
+      }).catch(errUpd=>{
+        this.alert.showErrorOperation()
+        this.updateDocument = null
+        this.formLocation.reset()
+      })
+    }
   }
 
-  updateLocation(event:MouseEvent,idDocument:string){
-    event.stopPropagation()
-    console.log(idDocument)
+  updateLocation(location:LocationsMaps){
+    this.formLocation.patchValue({"name":location.name})
+    this.formLocation.patchValue({"address":location.address})
+    this.formLocation.patchValue({"lat":location.lat})
+    this.formLocation.patchValue({"lng":location.lng})
+    this.updateDocument = location.idDocument
+    this.showMarkerOnMap(location.lat,location.lng,this.map)
   }
 
   deletLocation(event:MouseEvent,idDocument:string){
