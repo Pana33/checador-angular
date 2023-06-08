@@ -49,7 +49,6 @@ export class LocationsComponent implements OnInit, OnDestroy{
       }else{
         this.initMap(this.locationsData[0].lat,this.locationsData[0].lng)
       }
-      console.log(this.locationsData)
     })
     this.formLocation = this.fb.group({
       name:['',Validators.required],
@@ -165,7 +164,6 @@ export class LocationsComponent implements OnInit, OnDestroy{
     }
     this.markerAutocomplete = this.mapService.putMarkerAutocomplete(lat,lng,map)
     this.markerAutocomplete!.addListener("dragend",()=>{
-      console.log(this.markerAutocomplete?.getPosition())
       if(typeof this.markerAutocomplete?.getPosition()?.lat() != "undefined" && typeof this.markerAutocomplete?.getPosition()?.lng() != "undefined"){
         this.findNewPositionMarker(this.markerAutocomplete.getPosition()!.lat(),this.markerAutocomplete.getPosition()!.lng())
       }else{

@@ -116,11 +116,12 @@ export class GoogleMapsApiService {
       let inputAutocomplet = document.getElementById("autocomplet") as HTMLInputElement
       let optionsAutocomplet = {
         fields: ["formatted_address", "geometry"],
-        strictBounds: false,
+        strictBounds: true,
         componentRestrictions: { country: "mx" },
         types: ["address"],
       }
       let autocomplet = new google.maps.places.Autocomplete(inputAutocomplet, optionsAutocomplet)
+      autocomplet.bindTo("bounds",map)
       res(autocomplet)
     })
   }
