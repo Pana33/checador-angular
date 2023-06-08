@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { FilterParam } from 'src/app/shared/models/filter-param/filter-param';
 import { TablesDb } from 'src/app/shared/models/tables-db/tables-db';
+import { Loader } from "@googlemaps/js-api-loader"
 
 @Component({
   selector: 'app-locations',
@@ -10,6 +11,11 @@ import { TablesDb } from 'src/app/shared/models/tables-db/tables-db';
   styleUrls: ['./locations.component.scss']
 })
 export class LocationsComponent implements OnInit, OnDestroy{
+
+  loader = new Loader({
+    apiKey: "AIzaSyDVvgBLXFMRnBb5P34zi3G2Chzg_sOhzwQ",
+    version: "weekly",
+  });
 
   constructor(private db:DatabaseService){}
 
@@ -29,6 +35,13 @@ export class LocationsComponent implements OnInit, OnDestroy{
       }
       console.log(this.locationsData)
     })
+  
+    this.loader.load().then(() => {
+      let map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
+        center: { lat: -34.397, lng: 150.644 },
+        zoom: 8,
+      });
+    });
   }
 
   filterData(paramsObject: FilterParam) {
