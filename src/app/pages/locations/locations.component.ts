@@ -23,6 +23,7 @@ export class LocationsComponent implements OnInit, OnDestroy{
   paramsToFilter:FilterParam | null = null
   map!:google.maps.Map
   mapLoaded:boolean = false
+  markersOnMap:google.maps.Marker[] | null = null
 
   ngOnInit(): void {//revisar que pasa si aun no hay direcciones guardadas
     this.subLocationsData = this.db.getAllDocumentsWhitIdSubscribable(TablesDb.LOCATIONS).subscribe(resLoc=>{
@@ -53,9 +54,10 @@ export class LocationsComponent implements OnInit, OnDestroy{
     if(this.mapLoaded){
       this.mapService.centerMap(lat,lng,this.map)
     }else{
-      this.mapService.initMap(lat,lng,"map").then((resMap)=>{
+      this.mapService.initMap(lat,lng,"map",14).then((resMap)=>{
         this.map = resMap!
         this.mapLoaded = true
+        this.markersOnMap = this.mapService.putMarkers(this.locationsDataComplet,this.map)
       }).catch(errMap=>{
         this.alert.showErrorOperation("Carga de mapa","No se pudo cargar el mapa, por favor intenta nuevamente","error")
       })
