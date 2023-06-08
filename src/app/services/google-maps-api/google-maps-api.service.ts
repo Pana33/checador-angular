@@ -13,6 +13,7 @@ export class GoogleMapsApiService {
   private loader = new Loader({
     apiKey: environment.googleMapsApi,
     version: "weekly",
+    libraries:["places"],
   });
 
   initMap(lat:number,lng:number,idDivToLoadMap:string,zoom:number=11){
@@ -44,30 +45,60 @@ export class GoogleMapsApiService {
       '<div id="bodyContent">' +
       '<p>' + location.address + '</p>' +
       '</div>' +
-      '</div>';
-
+      '</div>'
       let infowindow = new google.maps.InfoWindow({
         content: contentString,
         ariaLabel: location.name,
       });
-
-
       let marker = new google.maps.Marker({
         position: {lat:location.lat,lng:location.lng},
         map,
         title: location.name,
       });
-
       marker.addListener("click", () => {
         infowindow.open({
           anchor: marker,
           map,
         });
       });
-
       markersToReturn.push(marker)
     }
     return markersToReturn
+  }
+
+  removeMarkers(markers:google.maps.Marker[]){
+    for(let marker of markers){
+      marker.setMap(null)
+    }
+  }
+
+  //TRABAJO CON EL AUTOCOMPLETAR
+  setAutocomplete(map:google.maps.Map){
+    return new Promise<google.maps.places.Autocomplete>((res,rej)=>{
+      let inputAutocomplet = document.getElementById("autocomplet") as HTMLInputElement
+      let optionsAutocomplet = {
+        fields: ["formatted_address", "geometry"],
+        strictBounds: false,
+        componentRestrictions: { country: "mx" },
+        types: ["address"],
+      }
+      let autocomplet = new google.maps.places.Autocomplete(inputAutocomplet, optionsAutocomplet)
+      res(autocomplet)
+    })
+  }
+
+  putMarkerAutocomplete(lat:number,lng:number,map:google.maps.Map){
+    let marker = new google.maps.Marker({
+      position: {lat:lat,lng:lng},
+      map,
+      draggable:true,
+      title:"Puedes arrastrar el marcador"
+    })
+    return marker
+  }
+
+  removeMarkerAutocomplete(marker:google.maps.Marker){
+    marker.setMap(null)
   }
 
 }

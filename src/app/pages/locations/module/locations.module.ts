@@ -3,15 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { LocationsRoutingModule } from './locations-routing.module';
 import { LocationsComponent } from '../locations.component';
-import { FormLocationsComponent } from '../components/form-locations/form-locations.component';
 import { FormFilterModule } from 'src/app/shared/components/form-filter/form-filter.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GoogleMapsApiService } from 'src/app/services/google-maps-api/google-maps-api.service';
 
 
 @NgModule({
   declarations: [
     LocationsComponent,
-    FormLocationsComponent,
   ],
   imports: [
     CommonModule,
@@ -19,6 +18,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormFilterModule,
     FormsModule,
     ReactiveFormsModule,
+  ],
+  providers:[
+    GoogleMapsApiService,
   ]
 })
 export class LocationsModule { }
