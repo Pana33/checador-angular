@@ -111,7 +111,13 @@ export class LocationsComponent implements OnInit, OnDestroy{
 
   deletLocation(event:MouseEvent,idDocument:string){
     event.stopPropagation()
-    console.log(idDocument)
+    this.alert.showYesNoQuestionAlert("Eliminar ubicacion",
+    "Ya no se podran realizar chacadas desde la app cerca de esta ubicacion, ¿Quieres continuar?",
+    "info").then(resQuest=>{
+      this.db.deleteDocument(TablesDb.LOCATIONS,idDocument).then(resDel=>{
+        this.alert.showSuccessfulOperation("Ubicacion eliminada")
+      })
+    })
   }
 
   ngOnDestroy(): void {
