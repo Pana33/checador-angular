@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { AlertsService } from 'src/app/services/alerts/alerts.service';
 import { DatabaseService } from 'src/app/services/database/database.service';
+import { GoogleMapsApiService } from 'src/app/services/google-maps-api/google-maps-api.service';
 import { FilterParam } from 'src/app/shared/models/filter-param/filter-param';
 import { TablesDb } from 'src/app/shared/models/tables-db/tables-db';
-import { Loader } from "@googlemaps/js-api-loader"
 
 @Component({
   selector: 'app-locations',
@@ -12,12 +13,7 @@ import { Loader } from "@googlemaps/js-api-loader"
 })
 export class LocationsComponent implements OnInit, OnDestroy{
 
-  loader = new Loader({
-    apiKey: "AIzaSyDVvgBLXFMRnBb5P34zi3G2Chzg_sOhzwQ",
-    version: "weekly",
-  });
-
-  constructor(private db:DatabaseService){}
+  constructor(private db:DatabaseService,private mapService:GoogleMapsApiService,private alert:AlertsService){}
 
   headerTable:string[] = ["Nombre","Direccion"]
   keyEmployees:string[] = ["name","address"]
@@ -25,8 +21,10 @@ export class LocationsComponent implements OnInit, OnDestroy{
   locationsDataComplet:any
   subLocationsData!:Subscription
   paramsToFilter:FilterParam | null = null
+  map!:google.maps.Map
+  mapLoaded:boolean = false
 
-  ngOnInit(): void {
+  ngOnInit(): void {//revisar que pasa si aun no hay direcciones guardadas
     this.subLocationsData = this.db.getAllDocumentsWhitIdSubscribable(TablesDb.LOCATIONS).subscribe(resLoc=>{
       this.locationsData = resLoc
       this.locationsDataComplet = resLoc
@@ -35,13 +33,6 @@ export class LocationsComponent implements OnInit, OnDestroy{
       }
       console.log(this.locationsData)
     })
-  
-    this.loader.load().then(() => {
-      let map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
-        center: { lat: -34.397, lng: 150.644 },
-        zoom: 8,
-      });
-    });
   }
 
   filterData(paramsObject: FilterParam) {
@@ -58,8 +49,17 @@ export class LocationsComponent implements OnInit, OnDestroy{
     }
   }
 
-  centerMap(lat:number,lng:number){
-    console.log(lat,lng)
+  centerOrInitMap(lat:number,lng:number){
+    if(this.mapLoaded){
+      this.mapService.centerMap(lat,lng,this.map)
+    }else{
+      this.mapService.initMap(lat,lng,"map").then((resMap)=>{
+        this.map = resMap!
+        this.mapLoaded = true
+      }).catch(errMap=>{
+        this.alert.showErrorOperation("Carga de mapa","No se pudo cargar el mapa, por favor intenta nuevamente","error")
+      })
+    }
   }
 
   updateLocation(event:MouseEvent,idDocument:string){

@@ -8,4 +8,5 @@ export const environment = {
     messagingSenderId: '755565236103',
     measurementId: 'G-CVMCPRMXWC',
   },
+  googleMapsApi:"AIzaSyDVvgBLXFMRnBb5P34zi3G2Chzg_sOhzwQ",
 };

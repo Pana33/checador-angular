@@ -5,7 +5,7 @@
     </div>
 </nav>
 <div class="d-flex flex-row gap-2 overflow-auto p-2">
-    <div class="card" role="button" *ngFor="let location of locationsData" (click)="centerMap(location.lat,location.lng)">
+    <div class="card" role="button" *ngFor="let location of locationsData" (click)="centerOrInitMap(location.lat,location.lng)">
         <div class="card-body p-2 d-flex flex-row gap-2 align-items-center">
             <p class="m-0 fw-semibold text-capitalize">{{location.name}}</p>
             <div class="btn-group btn-group-sm" role="group">
@@ -24,6 +24,4 @@
         </div>
     </div>
 </div>
-<div style="height: 600px;width: 600px;" id="map">
-
-</div>
+<div style="height: 400px;width: 600px;" id="map"></div>
