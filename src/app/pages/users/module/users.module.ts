@@ -7,6 +7,7 @@ import { ModalFormUserComponent } from '../components/modal-form-user/modal-form
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'src/app/shared/components/table/table.module';
+import { ButtonSideMenuModule } from 'src/app/shared/components/button-side-menu/button-side-menu.module';
 import { FormFilterModule } from 'src/app/shared/components/form-filter/form-filter.module';
 import { ButtonModalAddModule } from 'src/app/shared/components/button-modal-add/button-modal-add.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -26,6 +27,7 @@ import { FunctionsApiService } from 'src/app/services/functions-api/functions-ap
     FormFilterModule,
     ButtonModalAddModule,
     HttpClientModule,
+    ButtonSideMenuModule,
   ],
   providers:[
     FunctionsApiService,
