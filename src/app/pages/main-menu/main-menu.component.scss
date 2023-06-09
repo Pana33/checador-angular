@@ -1,6 +1,15 @@
-.sideNav{
+#sideNav{
     width: 250px;
+    transition: margin-left .3s;
+    margin-left: 0px;
 }
 .all-content{
+    background-color: white;
     width: calc(100vw - 250px);
+}
+
+@media (max-width:991px) {
+    #sideNav{
+        margin-left: -250px;
+    }
 }

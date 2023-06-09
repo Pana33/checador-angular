@@ -8,4 +8,5 @@ import { EmployeeDb, UserDb } from 'src/app/shared/models/type-person/type-perso
 export class EmittersService {
   @Output() activeModal:EventEmitter<UserDb | EmployeeDb | string> = new EventEmitter()
   @Output() showRecordOnMap:EventEmitter<RecordEmployee[]> = new EventEmitter()
+  @Output() togglerSidenav:EventEmitter<boolean> = new EventEmitter()
 }
