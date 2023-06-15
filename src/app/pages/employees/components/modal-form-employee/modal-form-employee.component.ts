@@ -62,6 +62,7 @@ export class ModalFormEmployeeComponent implements OnInit, OnDestroy {
       this.httpResponse = this.func.addEmployee(this.formAddEmployee.value).subscribe(resFunc=>{
         if(resFunc.estatus == "ok"){
           this.alert.showSuccessfulOperation()
+          this.formAddEmployee.reset()
         }else{
           this.alert.showErrorOperation()
         }
@@ -75,6 +76,7 @@ export class ModalFormEmployeeComponent implements OnInit, OnDestroy {
       delete dataToFirebase.emailEmployee
       this.db.updateDocument(TablesDb.EMPLOYEES,this.emailEmployee,dataToFirebase).then(resUpdate=>{
         this.alert.showSuccessfulOperation()
+        this.formAddEmployee.reset()
         this.showSpinner = false
       }).catch(errUpdate=>{
         this.alert.showErrorOperation()

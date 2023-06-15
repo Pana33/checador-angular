@@ -62,6 +62,7 @@ export class ModalFormUserComponent {
       this.httpResponse = this.func.addUser(this.formAddUser.value).subscribe(resFunc =>{
         if(resFunc.estatus == "ok"){
           this.alert.showSuccessfulOperation()
+          this.formAddUser.reset()
         }else{
           this.alert.showErrorOperation()
         }
@@ -75,6 +76,7 @@ export class ModalFormUserComponent {
       delete dataToFirebase.emailUser
       this.db.updateDocument(TablesDb.USERS,this.emailUser,dataToFirebase).then(resUpdate=>{
         this.alert.showSuccessfulOperation()
+        this.formAddUser.reset()
         this.showSpinner = false
       }).catch(errUpdate=>{
         this.alert.showErrorOperation()
