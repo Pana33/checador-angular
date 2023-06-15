@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit{
     this.showSpinnerLogin = true
     this.auth.login(this.formLogin.value.user,this.formLogin.value.password).then(resAuth=>{
       this.db.getOneDocumentOneTime(TablesDb.USERS,this.formLogin.value.user).then(resData=>{
-        if(resData.exists() && resData.data()["emailUser"] == this.formLogin.value.user){
+        if(resData.exists()){
           if(resData.data()["changePw"] == true){
             this.restorePw()
             this.auth.logout()
@@ -51,6 +51,9 @@ export class LoginComponent implements OnInit{
           }else if(resData.data()["changePw"] == false){
             this.router.navigate([PageRoutes.MENU])
             this.showSpinnerLogin = false
+          }else{
+            this.auth.logout()
+            this.showMsg(IdElementHtmlMsg.ERROR_MSG,"No contamos con la informacion necesaria, solicita ayuda del departamento de sistemas")
           }
         }else{
           this.auth.logout()
