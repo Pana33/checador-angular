@@ -5,4 +5,5 @@ export enum PageRoutes {
     EMPLOYEES = "empleados",
     USUARIOS = "usuarios",
     LOCATIONS = "ubicaciones",
+    RESTORE_PW = "restablecer",
 }

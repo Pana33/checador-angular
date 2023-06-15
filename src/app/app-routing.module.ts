@@ -11,6 +11,9 @@ const routes: Routes = [
     path:PageRoutes.LOGIN,component:LoginComponent
   },
   {
+    path:PageRoutes.RESTORE_PW,loadChildren: () => import('./pages/restore-pw/module/restore-pw.module').then(m => m.RestorePwModule)
+  },
+  {
     path:PageRoutes.MENU,loadChildren: () => import('./pages/main-menu/module/main-menu.module').then(m => m.MainMenuModule)
   },
   {

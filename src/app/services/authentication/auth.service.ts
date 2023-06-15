@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, user, signOut } from '@angular/fire/auth';
+import { Auth, signInWithEmailAndPassword, user, signOut, sendPasswordResetEmail } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,10 @@ export class AuthService {
 
   logout() {
     return signOut(this.afAuth)
+  }
+
+  restorePw(email:string){
+    return sendPasswordResetEmail(this.afAuth,email)
   }
 
 }
