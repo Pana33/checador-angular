@@ -43,7 +43,7 @@
                     <p>Si requieres cambiar tu contraseña puedes generar un nuevo enlace desde
                         el formulario de login ingresando tu correo y dando click en el boton
                         "Restablecer contraseña"</p>
-                    <a routerLink="login" class="text-center"><p>Llevame al login</p></a>
+                    <a [routerLink]="pageLogin" class="text-center"><p>Llevame al login</p></a>
                 </div>
             </div>
             <div class="card" *ngIf="validLinkToRestorePw != false && validLinkToRestorePw != true">

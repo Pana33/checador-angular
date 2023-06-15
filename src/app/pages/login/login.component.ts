@@ -7,6 +7,7 @@ import { DatabaseService } from 'src/app/services/database/database.service';
 import { TablesDb } from 'src/app/shared/models/tables-db/tables-db';
 import { Title } from '@angular/platform-browser';
 import { IdElementHtmlMsg } from './models/id-element-html-msg';
+import { AlertsService } from 'src/app/services/alerts/alerts.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit{
     private router:Router,
     private fb:FormBuilder,
     private db:DatabaseService,
-    private title:Title){
+    private title:Title,
+    private alert:AlertsService){
     this.title.setTitle("Checador empresarial")
   }
   
@@ -41,8 +43,15 @@ export class LoginComponent implements OnInit{
     this.auth.login(this.formLogin.value.user,this.formLogin.value.password).then(resAuth=>{
       this.db.getOneDocumentOneTime(TablesDb.USERS,this.formLogin.value.user).then(resData=>{
         if(resData.exists() && resData.data()["emailUser"] == this.formLogin.value.user){
-          this.router.navigate([PageRoutes.MENU])
-          this.showSpinnerLogin = false
+          if(resData.data()["changePw"] == true){
+            this.restorePw()
+            this.auth.logout()
+            this.alert.showErrorOperation("Cambio de contraseña","Se debe cambiar la contraseña que se encuentra por default, revisa tu correo electronico","info")
+            this.showSpinnerLogin = false
+          }else if(resData.data()["changePw"] == false){
+            this.router.navigate([PageRoutes.MENU])
+            this.showSpinnerLogin = false
+          }
         }else{
           this.auth.logout()
           this.showMsg(IdElementHtmlMsg.ERROR_MSG,"No hemos podido encontrar la informacion")
@@ -62,7 +71,7 @@ export class LoginComponent implements OnInit{
     if(this.formLogin.value.user != ""){
       this.auth.restorePw(this.formLogin.value.user).then(resRestore=>{
         this.showSpinnerResetPw = false
-        this.showMsg(IdElementHtmlMsg.PW_MSG,"Se envio un link para restablecer la contraseña al correo ingresado",)
+        this.showMsg(IdElementHtmlMsg.PW_MSG,"Se envio un link para cambiar la contraseña al correo ingresado")
       }).catch(errRestore=>{
         this.showSpinnerResetPw = false
         this.showMsg(IdElementHtmlMsg.PW_MSG,"No hemos podido enviar el correo de restablecimiento, por favor intenta nuevamente")

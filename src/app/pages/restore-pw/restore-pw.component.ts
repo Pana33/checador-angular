@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertsService } from 'src/app/services/alerts/alerts.service';
 import { AuthService } from 'src/app/services/authentication/auth.service';
 import { DatabaseService } from 'src/app/services/database/database.service';
+import { PageRoutes } from 'src/app/shared/models/page-routes/page-routes';
 import { TablesDb } from 'src/app/shared/models/tables-db/tables-db';
 
 @Component({
@@ -27,6 +28,7 @@ export class RestorePwComponent implements OnInit{
   oobCode:string = ""
   tableDb:string = ""
   idDocument:string = ""
+  pageLogin = PageRoutes.LOGIN
 
   ngOnInit(): void {
     this.formRestorePw = this.fb.group({
@@ -59,7 +61,7 @@ export class RestorePwComponent implements OnInit{
         this.db.updateDocument(this.tableDb,this.idDocument,{changePw:false}).then(resDb=>{
           this.alert.showSuccessfulOperation("Cambio exitoso")
           this.showSpinner = false
-          this.router.navigate(['login'])
+          this.router.navigate([PageRoutes.LOGIN])
         })
       }).catch(errChange=>{
         this.showSpinner = false
