@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, docData, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, docData, getDoc, updateDoc } from '@angular/fire/firestore';
 import { FormGroup } from '@angular/forms';
 
 @Injectable({
@@ -12,6 +12,11 @@ export class DatabaseService {
   getOneDocumentSubscribable(table:string,idDocument:string){
     let documentReference = doc(this.firestore,table,idDocument)
     return docData(documentReference)
+  }
+
+  getOneDocumentOneTime(table:string,idDocument:string){
+    let documentReference = doc(this.firestore,table,idDocument)
+    return getDoc(documentReference)
   }
 
   getAllDocumentsWhitoutIdSubscribable(table:string){
