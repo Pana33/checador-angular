@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit{
   }
   
   formLogin!:FormGroup
-  showSpinner = false
+  showSpinnerLogin:boolean = false
+  showSpinnerResetPw:boolean = false
   textErrorMsg:string = ""
   textRestorePwMsg:string = ""
 
@@ -36,34 +37,38 @@ export class LoginComponent implements OnInit{
   }
   
   makeLogin(){
-    this.showSpinner = true
+    this.showSpinnerLogin = true
     this.auth.login(this.formLogin.value.user,this.formLogin.value.password).then(resAuth=>{
       this.db.getOneDocumentOneTime(TablesDb.USERS,this.formLogin.value.user).then(resData=>{
         if(resData.exists() && resData.data()["emailUser"] == this.formLogin.value.user){
           this.router.navigate([PageRoutes.MENU])
-          this.showSpinner = false
+          this.showSpinnerLogin = false
         }else{
           this.auth.logout()
           this.showMsg(IdElementHtmlMsg.ERROR_MSG,"No hemos podido encontrar la informacion")
-          this.showSpinner = false
+          this.showSpinnerLogin = false
         }
       }).catch(errData=>{
         this.showMsg(IdElementHtmlMsg.ERROR_MSG,"No se pudo obtener el usuario")
       })
     }).catch(err=>{
-      this.showSpinner = false
+      this.showSpinnerLogin = false
       this.showMsg(IdElementHtmlMsg.ERROR_MSG,"Por favor revisa la informacion e intenta nuevamente")
     })
   }
 
   restorePw(){
+    this.showSpinnerResetPw = true
     if(this.formLogin.value.user != ""){
       this.auth.restorePw(this.formLogin.value.user).then(resRestore=>{
+        this.showSpinnerResetPw = false
         this.showMsg(IdElementHtmlMsg.PW_MSG,"Se envio un link para restablecer la contraseña al correo ingresado",)
       }).catch(errRestore=>{
+        this.showSpinnerResetPw = false
         this.showMsg(IdElementHtmlMsg.PW_MSG,"No hemos podido enviar el correo de restablecimiento, por favor intenta nuevamente")
       })
     }else{
+      this.showSpinnerResetPw = false
       this.showMsg(IdElementHtmlMsg.PW_MSG,"Debes ingresar un correo electronico")
     }
   }
