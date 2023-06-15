@@ -13,6 +13,5 @@ export interface EmployeeDb extends Person {
 }
 export interface UserDb extends Person {
     emailUser: string,
-    isActive: boolean,
     isAdmin: string,
 }
