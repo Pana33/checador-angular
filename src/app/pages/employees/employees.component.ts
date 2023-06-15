@@ -5,6 +5,7 @@ import { DatabaseService } from 'src/app/services/database/database.service';
 import { FilterParam } from 'src/app/shared/models/filter-param/filter-param';
 import { TablesDb } from 'src/app/shared/models/tables-db/tables-db';
 import { EmployeeDb } from 'src/app/shared/models/type-person/type-person';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-employees',
@@ -13,7 +14,9 @@ import { EmployeeDb } from 'src/app/shared/models/type-person/type-person';
 })
 export class EmployeesComponent implements OnInit, OnDestroy {
 
-  constructor(private db: DatabaseService) { }
+  constructor(private db: DatabaseService,private title:Title) {
+    this.title.setTitle("Empleados")
+  }
 
   headerTable = ["Nombre", "Apellidos", "Correo", "Curp", "Alta", "Acciones"]
   keyEmployees = ["firstName", "lastName", "emailEmployee", "curp", "dtCreated"]

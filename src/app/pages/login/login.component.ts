@@ -5,6 +5,7 @@ import { PageRoutes } from 'src/app/shared/models/page-routes/page-routes';
 import { AuthService } from 'src/app/services/authentication/auth.service';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { TablesDb } from 'src/app/shared/models/tables-db/tables-db';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,9 @@ import { TablesDb } from 'src/app/shared/models/tables-db/tables-db';
 })
 export class LoginComponent implements OnInit{
   
-  constructor(private auth:AuthService,private router:Router,private fb:FormBuilder,private db:DatabaseService){}
+  constructor(private auth:AuthService,private router:Router,private fb:FormBuilder,private db:DatabaseService,private title:Title){
+    this.title.setTitle("Checador empresarial")
+  }
   
   formLogin!:FormGroup
   showSpinner = false

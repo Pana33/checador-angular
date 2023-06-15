@@ -7,6 +7,7 @@ import { GoogleMapsApiService } from 'src/app/services/google-maps-api/google-ma
 import { FilterParam } from 'src/app/shared/models/filter-param/filter-param';
 import { LocationsMaps } from 'src/app/shared/models/locations-maps/locations-maps';
 import { TablesDb } from 'src/app/shared/models/tables-db/tables-db';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-locations',
@@ -15,7 +16,13 @@ import { TablesDb } from 'src/app/shared/models/tables-db/tables-db';
 })
 export class LocationsComponent implements OnInit, OnDestroy{
 
-  constructor(private db:DatabaseService,private mapService:GoogleMapsApiService,private alert:AlertsService,private fb:FormBuilder){}
+  constructor(private db:DatabaseService,
+    private mapService:GoogleMapsApiService,
+    private alert:AlertsService,
+    private fb:FormBuilder,
+    private title:Title){
+      this.title.setTitle("Ubicaciones")
+    }
 
   headerTable:string[] = ["Nombre","Direccion"]
   keyEmployees:string[] = ["name","address"]

@@ -5,6 +5,7 @@ import { DatabaseService } from 'src/app/services/database/database.service';
 import { FilterParam } from 'src/app/shared/models/filter-param/filter-param';
 import { TablesDb } from 'src/app/shared/models/tables-db/tables-db';
 import { UserDb } from 'src/app/shared/models/type-person/type-person';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-users',
@@ -14,7 +15,9 @@ import { UserDb } from 'src/app/shared/models/type-person/type-person';
 export class UsersComponent {
 
 
-  constructor(private db: DatabaseService) { }
+  constructor(private db: DatabaseService,private title:Title) {
+    this.title.setTitle("Usuarios")
+  }
 
   headerTable = ["Nombre", "Apellidos", "Correo", "Admin", "Alta", "Acciones"]
   keyUsers = ["firstName", "lastName", "emailUser", "isAdmin", "dtCreated"]

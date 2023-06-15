@@ -5,6 +5,7 @@ import { DatabaseService } from 'src/app/services/database/database.service';
 import { FilterParam } from 'src/app/shared/models/filter-param/filter-param';
 import { RecordEmployee } from 'src/app/shared/models/record-employee/record-employee';
 import { TablesDb } from 'src/app/shared/models/tables-db/tables-db';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-records',
@@ -13,7 +14,9 @@ import { TablesDb } from 'src/app/shared/models/tables-db/tables-db';
 })
 export class RecordsComponent implements OnInit, OnDestroy{
 
-  constructor(private db:DatabaseService){}
+  constructor(private db:DatabaseService,private title:Title){
+    this.title.setTitle("Registros")
+  }
 
   headerTable = ["Nombre","Email","Curp","Fecha","Tipo","Lugar","Mapa"]
   keyRecords = ["fullName","emailEmployee","curp","dateTime","type","namePlace"]
