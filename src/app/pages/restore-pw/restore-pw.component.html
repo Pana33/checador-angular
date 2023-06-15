@@ -1,1 +1,56 @@
-<p>restore-pw works!</p>
+<main class="container-fluid h-100">
+    <div class="row pt-5 flex-column align-items-center">
+        <div class="col">
+            <div class="card" *ngIf="validLinkToRestorePw == true">
+                <div class="card-body">
+                    <div class="card-tittle text-center">
+                        <h4 class="mb-3">Cambio de contraseña</h4>
+                    </div>
+                    <form [formGroup]="formRestorePw" (ngSubmit)="changePw()">
+                        <div class="pb-3">
+                            <label for="password1" class="form-label"><h6>Nueva contraseña</h6></label>
+                            <input type="password" class="form-control" id="password1" placeholder="*********" formControlName="pass1">
+                        </div>
+                        <div class="pb-4">
+                            <label for="password2" class="form-label"><h6>Repetir nueva contraseña</h6></label>
+                            <input type="password" class="form-control" id="password2" placeholder="*********" formControlName="pass2">
+                        </div>
+                        <div class="pb-2 text-center">
+                            <button class="btn btn-outline-success" type="submit" [disabled]="formRestorePw.invalid" *ngIf="!showSpinner">
+                                Aceptar <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shield-fill-check" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 0c-.69 0-1.843.265-2.928.56-1.11.3-2.229.655-2.887.87a1.54 1.54 0 0 0-1.044 1.262c-.596 4.477.787 7.795 2.465 9.99a11.777 11.777 0 0 0 2.517 2.453c.386.273.744.482 1.048.625.28.132.581.24.829.24s.548-.108.829-.24a7.159 7.159 0 0 0 1.048-.625 11.775 11.775 0 0 0 2.517-2.453c1.678-2.195 3.061-5.513 2.465-9.99a1.541 1.541 0 0 0-1.044-1.263 62.467 62.467 0 0 0-2.887-.87C9.843.266 8.69 0 8 0zm2.146 5.146a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647z"/>
+                                </svg>
+                            </button>
+                            <button class="btn btn-outline-success" type="submit" disabled="true" *ngIf="showSpinner">
+                                Cargando... <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card" *ngIf="validLinkToRestorePw == false">
+                <div class="card-body">
+                    <div class="card-tittle text-center">
+                        <h4 class="mb-3">Link no valido</h4>
+                    </div>
+                    <p>El link que intentas utilizar posiblemente <b>ya expiro o ya fue utilizado.</b></p>
+                    <p>Si requieres cambiar tu contraseña puedes generar un nuevo enlace desde
+                        el formulario de login ingresando tu correo y dando click en el boton
+                        "Restablecer contraseña"</p>
+                    <a routerLink="login" class="text-center"><p>Llevame al login</p></a>
+                </div>
+            </div>
+            <div class="card" *ngIf="validLinkToRestorePw != false && validLinkToRestorePw != true">
+                <div class="card-body">
+                    <div class="card-tittle text-center">
+                        <h4 class="mb-3">Validando informacion</h4>
+                    </div>
+                    <div class="text-center">
+                        <p>Espera un momento...</p>
+                        <p class="spinner-grow text-warning" role="status"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
