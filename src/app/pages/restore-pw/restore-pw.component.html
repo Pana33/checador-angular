@@ -28,6 +28,12 @@
                     </form>
                 </div>
             </div>
+            <div class="pt-3 d-flex flex-column gap-3">
+                <div class="alert alert-warning fade m-0 d-none" role="alert" id="msgInfo">
+                    <p class="fw-bold m-0 py-1">Datos incorrectos</p>
+                    <p class="m-0 py-1">{{textAlertMsg}}</p>
+                </div>
+            </div>
             <div class="card" *ngIf="validLinkToRestorePw == false">
                 <div class="card-body">
                     <div class="card-tittle text-center">
