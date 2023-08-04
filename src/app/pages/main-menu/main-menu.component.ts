@@ -2,11 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PageRoutes } from 'src/app/shared/models/page-routes/page-routes';
-import { TablesDb } from 'src/app/shared/models/tables-db/tables-db';
 import { UserDb } from 'src/app/shared/models/type-person/type-person';
 import { AuthService } from 'src/app/services/authentication/auth.service';
-import { DatabaseService } from 'src/app/services/database/database.service';
 import { EmittersService } from 'src/app/services/emitters/emitters.service';
+import { UserDataService } from 'src/app/services/user-data/user-data.service';
 
 @Component({
   selector: 'app-main-menu',
@@ -15,31 +14,19 @@ import { EmittersService } from 'src/app/services/emitters/emitters.service';
 })
 export class MainMenuComponent implements OnInit, OnDestroy {
 
-  constructor(private auth: AuthService, private db: DatabaseService, private router: Router,private emitter:EmittersService) { }
+  constructor(private auth: AuthService, private userData: UserDataService, private router: Router,private emitter:EmittersService) { }
 
   readonly pages = PageRoutes
-  emailUser = ""
-  subEmailUser!: Subscription
-  dataUser!: UserDb
-  subDataUser!: Subscription
+  savedData!: UserDb
+  subSavedData!: Subscription
   statusSidenav:boolean = false
   subEmitterToggleSidenav!:Subscription
 
   ngOnInit(): void {
-    this.subEmailUser = this.auth.getEmailUser().subscribe(resEmailUser => {
-      if (resEmailUser != null && typeof (resEmailUser.email) == "string") {
-        this.emailUser = resEmailUser.email
-        this.subDataUser = this.db.getOneDocumentSubscribable(TablesDb.USERS, this.emailUser).subscribe(resDataUser => {
-          this.dataUser = resDataUser as UserDb
-          if (!this.dataUser.isActive) {
-            //El usuario no esta activo
-            this.logout()
-          }
-        })
-      } else {
-        //No encontramos su correo
-        this.logout()
-      }
+    this.userData.getUserData().then(resData=>{
+      this.savedData = resData as UserDb
+    }).catch(err=>{
+      this.logout()
     })
     this.subEmitterToggleSidenav = this.emitter.togglerSidenav.subscribe(res=>{
       let sidenav = document.getElementById("sideNav") as HTMLElement
@@ -58,8 +45,8 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subEmailUser?.unsubscribe()
-    this.subDataUser?.unsubscribe()
+    this.subSavedData?.unsubscribe()
+    this.userData.unsubscribe()
   }
 
 }

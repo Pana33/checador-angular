@@ -22,13 +22,13 @@
                         <span class="ps-2">Empleados</span>
                     </div>
                 </a>
-                <a [routerLink]="pages.USUARIOS" class="list-group-item py-2 list-group-item-action" *ngIf="dataUser?.isAdmin == 'si'">
+                <a [routerLink]="pages.USUARIOS" class="list-group-item py-2 list-group-item-action" *ngIf="savedData?.isAdmin == 'si'">
                     <div class="d-flex flex-row align-items-center">
                         <img src="../../../assets/icons/person-circle.svg" alt="person-circle-icon">
                         <span class="ps-2">Usuarios</span>
                     </div>
                 </a>
-                <a [routerLink]="pages.LOCATIONS" class="list-group-item py-2 list-group-item-action" *ngIf="dataUser?.isAdmin == 'si'">
+                <a [routerLink]="pages.LOCATIONS" class="list-group-item py-2 list-group-item-action" *ngIf="savedData?.isAdmin == 'si'">
                     <div class="d-flex flex-row align-items-center">
                         <img src="../../../assets/icons/world.svg" alt="world-icon">
                         <span class="ps-2">Ubicaciones</span>

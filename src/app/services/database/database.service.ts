@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, docData, getDoc, updateDoc } from '@angular/fire/firestore';
 import { FormGroup } from '@angular/forms';
+import { TablesDb } from 'src/app/shared/models/tables-db/tables-db';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,11 @@ import { FormGroup } from '@angular/forms';
 export class DatabaseService {
 
   constructor(private firestore:Firestore) { }
+
+  getUserData(email:string){
+    let documentReference = doc(this.firestore,TablesDb.USERS,email)
+    return docData(documentReference)
+  }
 
   getOneDocumentSubscribable(table:string,idDocument:string){
     let documentReference = doc(this.firestore,table,idDocument)
