@@ -18,14 +18,14 @@ export class UserActiveGuard implements CanMatch {
     return new Promise((res,rej)=>{
       this.userData.getUserData().then(resData=>{
         let dataObtained = resData as UserDb
-        res(this.checkData(dataObtained))
+        res(this.checkActiveUser(dataObtained))
       }).catch((errData:string)=>{
-        res(this.checkData(errData))
+        res(this.checkActiveUser(errData))
       })
     })
   }
 
-  private checkData(data:string | UserDb){
+  private checkActiveUser(data:string | UserDb){
     if(typeof data == "string" || data.isActive != true){
       this.userData.unsubscribe()
       this.auth.logout()
