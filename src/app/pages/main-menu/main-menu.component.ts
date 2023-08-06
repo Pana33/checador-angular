@@ -28,6 +28,14 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     }).catch(err=>{
       this.logout()
     })
+    this.emitter.userDataEmitter.subscribe(resUser=>{
+      if(typeof resUser != "undefined"){
+        this.savedData = resUser
+      }
+      if(typeof resUser == "undefined" || resUser?.isActive != true){
+        this.logout()
+      }
+    })
     this.subEmitterToggleSidenav = this.emitter.togglerSidenav.subscribe(res=>{
       let sidenav = document.getElementById("sideNav") as HTMLElement
       if(this.statusSidenav == false){

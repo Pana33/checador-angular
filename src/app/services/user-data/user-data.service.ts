@@ -3,13 +3,14 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../authentication/auth.service';
 import { DatabaseService } from '../database/database.service';
 import { UserDb } from 'src/app/shared/models/type-person/type-person';
+import { EmittersService } from '../emitters/emitters.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserDataService {
 
-  constructor(private auth:AuthService,private db:DatabaseService) { }
+  constructor(private auth:AuthService,private db:DatabaseService,private emitter:EmittersService) { }
 
   private emailUser:string = ""
   private subEmailUser!:Subscription
@@ -37,6 +38,7 @@ export class UserDataService {
   private consultUserData(email:string){
     return new Promise((res,rej)=>{
       this.subUserData = this.db.getUserData(email).subscribe(resDataUser => {
+        this.emitter.userDataEmitter.emit(resDataUser as UserDb)
         if(typeof resDataUser != "undefined"){
           this.userData = resDataUser as UserDb
           res(this.userData)
