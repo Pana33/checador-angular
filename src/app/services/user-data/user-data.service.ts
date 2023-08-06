@@ -20,7 +20,7 @@ export class UserDataService {
   private consultEmailUser(){
     return new Promise<string>((res,rej)=>{
       this.subEmailUser = this.auth.getEmailUser().subscribe(resEmailUser => {
-        if (resEmailUser != null && typeof (resEmailUser.email) == "string") {
+        if (resEmailUser != null && typeof resEmailUser?.email == "string") {
           if(this.emailUser != "" && this.emailUser != resEmailUser.email){
             this.subUserData?.unsubscribe()
             this.consultUserData(resEmailUser.email)
@@ -83,6 +83,8 @@ export class UserDataService {
   }
 
   unsubscribe(){
+    this.emailUser = ""
+    this.userData = null
     this.subEmailUser?.unsubscribe()
     this.subUserData?.unsubscribe()
   }
