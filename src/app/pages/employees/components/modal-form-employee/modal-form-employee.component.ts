@@ -63,6 +63,7 @@ export class ModalFormEmployeeComponent implements OnInit, OnDestroy {
         if(resFunc.estatus == "ok"){
           this.alert.showSuccessfulOperation()
           this.formAddEmployee.reset()
+          document.getElementById("closeButton")?.click()
         }else{
           this.alert.showErrorOperation()
         }
@@ -78,6 +79,7 @@ export class ModalFormEmployeeComponent implements OnInit, OnDestroy {
         this.alert.showSuccessfulOperation()
         this.formAddEmployee.reset()
         this.showSpinner = false
+        document.getElementById("closeButton")?.click()
       }).catch(errUpdate=>{
         this.alert.showErrorOperation()
         this.showSpinner = false

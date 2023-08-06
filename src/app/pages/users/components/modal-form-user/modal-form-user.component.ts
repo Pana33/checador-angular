@@ -63,6 +63,7 @@ export class ModalFormUserComponent {
         if(resFunc.estatus == "ok"){
           this.alert.showSuccessfulOperation()
           this.formAddUser.reset()
+          document.getElementById("closeButton")?.click()
         }else{
           this.alert.showErrorOperation()
         }
@@ -78,6 +79,7 @@ export class ModalFormUserComponent {
         this.alert.showSuccessfulOperation()
         this.formAddUser.reset()
         this.showSpinner = false
+        document.getElementById("closeButton")?.click()
       }).catch(errUpdate=>{
         this.alert.showErrorOperation()
         this.showSpinner = false
