@@ -1,15 +1,55 @@
-#sideNav{
+#sideNav {
     width: 250px;
     transition: margin-left .3s;
     margin-left: 0px;
 }
-.all-content{
+
+.all-content {
     background-color: white;
     width: calc(100vw - 250px);
 }
 
+.list-group-item {
+    height: 40px;
+}
+
+.iconAndTextPosition {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    z-index: 1;
+    transform: translateY(-50%);
+}
+
 @media (max-width:991px) {
-    #sideNav{
+    #sideNav {
         margin-left: -250px;
+    }
+}
+
+a:focus {
+    color: black;
+    background-color: white;
+}
+
+.activo::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    background: linear-gradient(to right, rgba(139, 139, 139, 0.2), 85%, rgba(255, 255, 255, 0.2));
+    animation: activeLink .5s ease-out forwards,
+}
+
+@keyframes activeLink {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
     }
 }
