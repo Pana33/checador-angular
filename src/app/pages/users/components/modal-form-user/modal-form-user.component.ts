@@ -49,9 +49,9 @@ export class ModalFormUserComponent {
 
   initForm(firstName?:string,lastName?:string,emailUser?:string,isAdmin?:string){
     this.formAddUser = this.fb.group({
-      firstName:[firstName,[Validators.required]],
-      lastName:[lastName,[Validators.required]],
-      emailUser:[emailUser,[Validators.required]],
+      firstName:[firstName,[Validators.required,Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/)]],
+      lastName:[lastName,[Validators.required,Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/)]],
+      emailUser:[emailUser,[Validators.required,Validators.email]],
       isAdmin:[isAdmin,[Validators.required]],
     })
   }

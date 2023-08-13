@@ -10,6 +10,9 @@ import { ButtonSideMenuModule } from 'src/app/shared/components/button-side-menu
 import { TableModule } from 'src/app/shared/components/table/table.module';
 import { FormFilterModule } from 'src/app/shared/components/form-filter/form-filter.module';
 import { ButtonModalAddModule } from 'src/app/shared/components/button-modal-add/button-modal-add.module';
+import { ErrorFormCharactersModule } from 'src/app/shared/components/error-form-characters/error-form-characters.module';
+import { ErrorFormRequiredModule } from 'src/app/shared/components/error-form-required/error-form-required.module';
+
 
 @NgModule({
   declarations: [
@@ -25,6 +28,8 @@ import { ButtonModalAddModule } from 'src/app/shared/components/button-modal-add
     FormFilterModule,
     ButtonModalAddModule,
     ButtonSideMenuModule,
+    ErrorFormCharactersModule,
+    ErrorFormRequiredModule
   ]
 })
 export class EmployeesModule { }

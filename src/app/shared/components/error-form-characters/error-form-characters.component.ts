@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-error-form-characters',
@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./error-form-characters.component.scss']
 })
 export class ErrorFormCharactersComponent {
-
+  @Input() touched:boolean = false
+  @Input() errorPattern:boolean = false
 }

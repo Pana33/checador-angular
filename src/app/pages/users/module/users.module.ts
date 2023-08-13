@@ -12,6 +12,8 @@ import { FormFilterModule } from 'src/app/shared/components/form-filter/form-fil
 import { ButtonModalAddModule } from 'src/app/shared/components/button-modal-add/button-modal-add.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FunctionsApiService } from 'src/app/services/functions-api/functions-api.service';
+import { ErrorFormCharactersModule } from 'src/app/shared/components/error-form-characters/error-form-characters.module';
+import { ErrorFormRequiredModule } from 'src/app/shared/components/error-form-required/error-form-required.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { FunctionsApiService } from 'src/app/services/functions-api/functions-ap
     ButtonModalAddModule,
     HttpClientModule,
     ButtonSideMenuModule,
+    ErrorFormCharactersModule,
+    ErrorFormRequiredModule
   ],
   providers:[
     FunctionsApiService,
