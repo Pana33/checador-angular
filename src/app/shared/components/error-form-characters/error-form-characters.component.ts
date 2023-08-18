@@ -8,4 +8,5 @@ import { Component, Input } from '@angular/core';
 export class ErrorFormCharactersComponent {
   @Input() touched:boolean = false
   @Input() errorPattern:boolean = false
+  @Input() validCharacters:string = ""
 }

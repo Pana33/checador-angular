@@ -11,13 +11,13 @@
                             <div class="col-12 col-sm-6 pb-3">
                                 <label for="firstName" class="form-label">Nombre(s)</label>
                                 <input type="firstName" class="form-control" id="firstName" placeholder="Juan Fernando" formControlName="firstName">
-                                <app-error-form-characters [touched]="formAddUser.get('firstName')!.touched" [errorPattern]="formAddUser.get('firstName')?.errors?.['pattern'] ? true : false"></app-error-form-characters>
+                                <app-error-form-characters [touched]="formAddUser.get('firstName')!.touched" [errorPattern]="formAddUser.get('firstName')?.errors?.['pattern'] ? true : false" validCharacters="letras"></app-error-form-characters>
                                 <app-error-form-required [touched]="formAddUser.get('firstName')!.touched" [errorRequired]="formAddUser.get('firstName')?.errors?.['required']"></app-error-form-required>
                             </div>
                             <div class="col-12 col-sm-6 pb-3">
                                 <label for="lastName" class="form-label">Apellido(s)</label>
                                 <input type="lastName" class="form-control" id="lastName" placeholder="Gonzales Sanchez" formControlName="lastName">
-                                <app-error-form-characters [touched]="formAddUser.get('lastName')!.touched" [errorPattern]="formAddUser.get('lastName')?.errors?.['pattern'] ? true : false"></app-error-form-characters>
+                                <app-error-form-characters [touched]="formAddUser.get('lastName')!.touched" [errorPattern]="formAddUser.get('lastName')?.errors?.['pattern'] ? true : false" validCharacters="letras"></app-error-form-characters>
                                 <app-error-form-required [touched]="formAddUser.get('lastName')!.touched" [errorRequired]="formAddUser.get('lastName')?.errors?.['required']"></app-error-form-required>
                             </div>
                         </div>
@@ -25,7 +25,7 @@
                             <div class="col-12 col-sm-6 pb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="email" placeholder="correo@dominio.com" formControlName="emailUser">
-                                <app-error-form-characters [touched]="formAddUser.get('emailUser')!.touched" [errorPattern]="formAddUser.get('emailUser')?.errors?.['email']"></app-error-form-characters>
+                                <app-error-form-characters [touched]="formAddUser.get('emailUser')!.touched" [errorPattern]="formAddUser.get('emailUser')?.errors?.['email']" validCharacters="letras, numeros y simbolos en formato de correo electronico"></app-error-form-characters>
                                 <app-error-form-required [touched]="formAddUser.get('emailUser')!.touched" [errorRequired]="formAddUser.get('emailUser')?.errors?.['required']"></app-error-form-required>
                             </div>
                             <div class="col-12 col-sm-6 pb-3">

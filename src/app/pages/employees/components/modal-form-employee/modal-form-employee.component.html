@@ -11,13 +11,13 @@
                             <div class="col-12 col-sm-6 pb-3">
                                 <label for="firstName" class="form-label">Nombre(s)</label>
                                 <input type="firstName" class="form-control" id="firstName" placeholder="Juan Fernando" formControlName="firstName">
-                                <app-error-form-characters [touched]="formAddEmployee.get('firstName')!.touched" [errorPattern]="formAddEmployee.get('firstName')?.errors?.['pattern'] ? true : false"></app-error-form-characters>
+                                <app-error-form-characters [touched]="formAddEmployee.get('firstName')!.touched" [errorPattern]="formAddEmployee.get('firstName')?.errors?.['pattern'] ? true : false" validCharacters="letras"></app-error-form-characters>
                                 <app-error-form-required [touched]="formAddEmployee.get('firstName')!.touched" [errorRequired]="formAddEmployee.get('firstName')?.errors?.['required']"></app-error-form-required>
                             </div>
                             <div class="col-12 col-sm-6 pb-3">
                                 <label for="lastName" class="form-label">Apellido(s)</label>
                                 <input type="lastName" class="form-control" id="lastName" placeholder="Gonzales Sanchez" formControlName="lastName">
-                                <app-error-form-characters [touched]="formAddEmployee.get('lastName')!.touched" [errorPattern]="formAddEmployee.get('lastName')?.errors?.['pattern'] ? true : false"></app-error-form-characters>
+                                <app-error-form-characters [touched]="formAddEmployee.get('lastName')!.touched" [errorPattern]="formAddEmployee.get('lastName')?.errors?.['pattern'] ? true : false" validCharacters="letras"></app-error-form-characters>
                                 <app-error-form-required [touched]="formAddEmployee.get('lastName')!.touched" [errorRequired]="formAddEmployee.get('lastName')?.errors?.['required']"></app-error-form-required>
                             </div>
                         </div>
@@ -25,13 +25,13 @@
                             <div class="col-12 col-sm-6 pb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="email" placeholder="correo@dominio.com" formControlName="emailEmployee">
-                                <app-error-form-characters [touched]="formAddEmployee.get('emailEmployee')!.touched" [errorPattern]="formAddEmployee.get('emailEmployee')?.errors?.['email']"></app-error-form-characters>
+                                <app-error-form-characters [touched]="formAddEmployee.get('emailEmployee')!.touched" [errorPattern]="formAddEmployee.get('emailEmployee')?.errors?.['email']" validCharacters="letras, numeros y simbolos en formato de correo electronico"></app-error-form-characters>
                                 <app-error-form-required [touched]="formAddEmployee.get('emailEmployee')!.touched" [errorRequired]="formAddEmployee.get('emailEmployee')?.errors?.['required']"></app-error-form-required>
                             </div>
                             <div class="col-12 col-sm-6 pb-3">
                                 <label for="curp" class="form-label">Curp</label>
                                 <input type="curp" class="form-control" id="curp" placeholder="GOSA900713AGSFTL55" formControlName="curp">
-                                <app-error-form-characters [touched]="formAddEmployee.get('curp')!.touched" [errorPattern]="formAddEmployee.get('curp')?.errors?.['pattern'] ? true : false"></app-error-form-characters>
+                                <app-error-form-characters [touched]="formAddEmployee.get('curp')!.touched" [errorPattern]="formAddEmployee.get('curp')?.errors?.['pattern'] ? true : false" validCharacters="letras y numeros en formato de curp en mayusculas"></app-error-form-characters>
                                 <app-error-form-required [touched]="formAddEmployee.get('curp')!.touched" [errorRequired]="formAddEmployee.get('curp')?.errors?.['required']"></app-error-form-required>
                             </div>
                         </div>
