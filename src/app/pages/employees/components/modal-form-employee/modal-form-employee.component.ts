@@ -57,6 +57,10 @@ export class ModalFormEmployeeComponent implements OnInit, OnDestroy {
   }
 
   addOrUpdateEmploye(){
+    if(this.formAddEmployee.valid != true){
+      console.log("error")
+      return
+    }
     this.showSpinner = true
     if(this.operation == "add"){
       this.httpResponse = this.func.addEmployee(this.formAddEmployee.value).subscribe(resFunc=>{

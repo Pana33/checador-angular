@@ -57,6 +57,10 @@ export class ModalFormUserComponent {
   }
 
   addOrUpdateUser(){
+    if(this.formAddUser.valid != true){
+      console.log("error")
+      return
+    }
     this.showSpinner = true
     if(this.operation == "add"){
       this.httpResponse = this.func.addUser(this.formAddUser.value).subscribe(resFunc =>{
